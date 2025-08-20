@@ -7,6 +7,9 @@
   --h2:clamp(1.5rem, 2.5vw, 2rem);
   --h3:clamp(1.25rem, 2vw, 1.5rem);
   --lead:clamp(1rem, 1.5vw, 1.125rem);
+
+  /* TEMP: remove after confirming CSS loads */
+body { outline: 3px solid hotpink !important; }
 }
 *{box-sizing:border-box} html,body{margin:0;padding:0}
 body{
