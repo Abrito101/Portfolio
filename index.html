@@ -3,18 +3,72 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title> Angel Vasquez — Portfolio</title>
+  <title>Angel Vasquez — Portfolio</title>
+
+  <!-- Fonts & CSS -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <!-- Font Awesome icons -->
+
+  <!-- Font Awesome (for eye icon) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Minimal add-ons: eye icon + lightbox styles -->
+  <style>
+    /* screen reader helper */
+    .sr-only{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+      clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+
+    /* eye icon overlay on each slide */
+    .slide{ position:relative; }
+    .slide .expand{
+      position:absolute; top:10px; right:10px;
+      display:inline-grid; place-items:center;
+      width:36px; height:36px; border-radius:999px; border:0;
+      background:rgba(0,0,0,.6); color:#fff; cursor:pointer;
+      opacity:0; transform:translateY(-2px);
+      transition:opacity .2s ease, transform .2s ease, background .2s ease;
+      z-index:2;
+    }
+    .slide:hover .expand, .slide:focus-within .expand{ opacity:1; transform:translateY(0); }
+    .slide .expand:hover{ background:rgba(0,0,0,.85); }
+    .slide .expand i{ font-size:14px; }
+    @media (hover:none){ .slide .expand{ opacity:1; transform:none; } }
+
+    /* lightbox */
+    #lightbox[hidden]{ display:none !important; }
+    #lightbox{ position:fixed; inset:0; z-index:1000; }
+    .lb-overlay{ position:absolute; inset:0; background:rgba(0,0,0,.85); backdrop-filter:blur(2px); }
+    .lb-content{
+      position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+      width:min(96vw,1100px); height:min(90vh,800px);
+      margin:0; display:grid; grid-template-rows:1fr auto; gap:.5rem;
+      align-items:center; justify-items:center;
+    }
+    .lb-img{ max-width:100%; max-height:100%; object-fit:contain; border-radius:12px; background:#111; }
+    .lb-close{
+      position:absolute; top:-44px; right:0; width:40px; height:40px; border:0; border-radius:999px;
+      background:rgba(255,255,255,.15); color:#fff; cursor:pointer; font-size:1.25rem;
+    }
+    .lb-nav{
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:44px; height:44px; border:0; border-radius:999px; background:rgba(255,255,255,.15);
+      color:#fff; cursor:pointer; font-size:1.1rem;
+    }
+    .lb-prev{ left:-56px } .lb-next{ right:-56px }
+    .lb-cap{ color:#ddd; font-size:.95rem }
+    @media (max-width:900px){
+      .lb-prev{ left:4px } .lb-next{ right:4px } .lb-close{ top:4px; right:4px }
+    }
+  </style>
 </head>
 
 <body>
   <header class="site-header">
     <nav class="nav">
       <h1 class="logo">Angel Vasquez</h1>
-      <p>Cybersecurity Student • Problem Solver • Lifelong Learner</p>  
+      <p>Cybersecurity Student • Problem Solver • Lifelong Learner</p>
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
@@ -37,79 +91,106 @@
 
 He has experience in networking and system administration, including configuring VLANs, managing Active Directory in both Linux and Windows environments, and creating user accounts. His cybersecurity experience includes deploying and configuring SNORT IDS, building honeypots, and analyzing malware such as Zeus. Angel has also sharpened his offensive security skills through TryHackMe capture-the-flag challenges using Kali Linux. </p>
     </section>
-    
-  <section id="projects" class="container">
-  <h3>Projects</h3>
 
-  <div class="project-grid">
-    <!-- College Projects -->
-    <article class="project-card">
-      <h4>College Projects</h4>
-      <p>These are some of my favorite projects that I worked on in my university Associates Program at Mohawk Valley Community College.</p>
+    <section id="projects" class="container">
+      <h3>Projects</h3>
+      <div class="project-grid">
 
-      <!-- Carousel -->
-      <div class="carousel" data-carousel tabindex="0" aria-label="College Projects slideshow">
-        <!-- top arrows (both) -->
-        <button class="nav prev" aria-label="Previous slide" data-carousel-prev></button>
+        <!-- College Projects -->
+        <article class="project-card">
+          <h4>College Projects</h4>
+          <p>These are some of my favorite projects that I worked on in my university Associates Program at Mohawk Valley Community College.</p>
 
-        <div class="viewport" data-carousel-viewport>
-          <ul class="track" data-carousel-track>
-            <li class="slide" aria-label="Slide 1 of 8"><img src="./1.jpg" alt="Project slide 1" loading="lazy" decoding="async" fetchpriority="low"></li>
-            <li class="slide" aria-label="Slide 2 of 8"><img src="./2.jpg" alt="Project slide 2" loading="lazy" decoding="async" fetchpriority="low"></li>
-            <li class="slide" aria-label="Slide 3 of 8"><img src="./3.jpg" alt="Project slide 3" loading="lazy" decoding="async" fetchpriority="low"></li>
-            <li class="slide" aria-label="Slide 4 of 8"><img src="./4.jpg" alt="Project slide 4" loading="lazy" decoding="async" fetchpriority="low"></li>
-            <li class="slide" aria-label="Slide 5 of 8"><img src="./5.jpg" alt="Project slide 5" loading="lazy" decoding="async" fetchpriority="low"></li>
-            <li class="slide" aria-label="Slide 6 of 8"><img src="./6.jpg" alt="Project slide 6" loading="lazy" decoding="async" fetchpriority="low"></li>
-            <li class="slide" aria-label="Slide 7 of 8"><img src="./7.jpg" alt="Project slide 7" loading="lazy" decoding="async" fetchpriority="low"></li>
-            <li class="slide" aria-label="Slide 8 of 8"><img src="./8.jpg" alt="Project slide 8" loading="lazy" decoding="async" fetchpriority="low"></li>
-          </ul>
-        </div>
+          <div class="carousel" data-carousel tabindex="0" aria-label="College Projects slideshow">
+            <!-- matching arrows -->
+            <button class="nav prev" aria-label="Previous slide" data-carousel-prev></button>
 
-        <button class="nav next" aria-label="Next slide" data-carousel-next></button>
-        <div class="dots" role="tablist" aria-label="Slide navigation" data-carousel-dots></div>
+            <div class="viewport" data-carousel-viewport>
+              <ul class="track" data-carousel-track>
+                <li class="slide" aria-label="Slide 1 of 8">
+                  <img src="./1.jpg" alt="Project slide 1" loading="lazy" decoding="async" fetchpriority="low">
+                  <button class="expand" aria-label="Expand slide 1" data-expand="0">
+                    <i class="fas fa-eye" aria-hidden="true"></i><span class="sr-only">Expand</span>
+                  </button>
+                </li>
+                <li class="slide" aria-label="Slide 2 of 8">
+                  <img src="./2.jpg" alt="Project slide 2" loading="lazy" decoding="async" fetchpriority="low">
+                  <button class="expand" aria-label="Expand slide 2" data-expand="1">
+                    <i class="fas fa-eye" aria-hidden="true"></i><span class="sr-only">Expand</span>
+                  </button>
+                </li>
+                <li class="slide" aria-label="Slide 3 of 8">
+                  <img src="./3.jpg" alt="Project slide 3" loading="lazy" decoding="async" fetchpriority="low">
+                  <button class="expand" aria-label="Expand slide 3" data-expand="2">
+                    <i class="fas fa-eye" aria-hidden="true"></i><span class="sr-only">Expand</span>
+                  </button>
+                </li>
+                <li class="slide" aria-label="Slide 4 of 8">
+                  <img src="./4.jpg" alt="Project slide 4" loading="lazy" decoding="async" fetchpriority="low">
+                  <button class="expand" aria-label="Expand slide 4" data-expand="3">
+                    <i class="fas fa-eye" aria-hidden="true"></i><span class="sr-only">Expand</span>
+                  </button>
+                </li>
+                <li class="slide" aria-label="Slide 5 of 8">
+                  <img src="./5.jpg" alt="Project slide 5" loading="lazy" decoding="async" fetchpriority="low">
+                  <button class="expand" aria-label="Expand slide 5" data-expand="4">
+                    <i class="fas fa-eye" aria-hidden="true"></i><span class="sr-only">Expand</span>
+                  </button>
+                </li>
+                <li class="slide" aria-label="Slide 6 of 8">
+                  <img src="./6.jpg" alt="Project slide 6" loading="lazy" decoding="async" fetchpriority="low">
+                  <button class="expand" aria-label="Expand slide 6" data-expand="5">
+                    <i class="fas fa-eye" aria-hidden="true"></i><span class="sr-only">Expand</span>
+                  </button>
+                </li>
+                <li class="slide" aria-label="Slide 7 of 8">
+                  <img src="./7.jpg" alt="Project slide 7" loading="lazy" decoding="async" fetchpriority="low">
+                  <button class="expand" aria-label="Expand slide 7" data-expand="6">
+                    <i class="fas fa-eye" aria-hidden="true"></i><span class="sr-only">Expand</span>
+                  </button>
+                </li>
+                <li class="slide" aria-label="Slide 8 of 8">
+                  <img src="./8.jpg" alt="Project slide 8" loading="lazy" decoding="async" fetchpriority="low">
+                  <button class="expand" aria-label="Expand slide 8" data-expand="7">
+                    <i class="fas fa-eye" aria-hidden="true"></i><span class="sr-only">Expand</span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            <button class="nav next" aria-label="Next slide" data-carousel-next></button>
+            <div class="dots" role="tablist" aria-label="Slide navigation" data-carousel-dots></div>
+          </div>
+        </article>
+
+        <!-- Example second card -->
+        <article class="project-card">
+          <h4>Project Two</h4>
+          <p>Short description. Tech used: Python, Flask.</p>
+          <a class="btn" href="#" target="_blank" rel="noopener">View project</a>
+        </article>
       </div>
-
-      <!-- bottom arrows (matching style) -->
-      <div style="margin-top:.5rem; display:flex; gap:.5rem; align-items:center">
-        <button class="nav prev" aria-label="Previous slide" data-carousel-back></button>
-        <button class="nav next" aria-label="Next slide" data-carousel-next-btn></button>
-        <a class="btn" href="./1.jpg" target="_blank" rel="noopener">Open first slide</a>
-      </div>
-    </article>
-
-    <!-- Example second card (placeholder) -->
-    <article class="project-card">
-      <h4>Project Two</h4>
-      <p>Short description. Tech used: Python, Flask.</p>
-      <a class="btn" href="#" target="_blank" rel="noopener">View project</a>
-    </article>
-  </div> <!-- /.project-grid -->
-</section>
+    </section>
 
     <section id="resume" class="container">
       <h3>Resume</h3>
+      <!-- Keep as-is for now; swap to an image preview later if you want -->
       <iframe src="Resume.pdf" width="100%" height="800px" style="border:1px solid #ccc;"></iframe>
     </section>
 
     <section id="contact" class="container">
       <h3>Contact</h3>
-      <p><i class="fas fa-envelope"></i>
-        <a href="mailto:angeld.3840@gmail.com">angeld.3840@gmail.com</a>
-      </p>
-      <p><i class="fab fa-github"></i>
-        <a href="https://github.com/Abrito101" target="_blank" rel="noopener">github.com/Abrito101</a>
-      </p>
-      <p><i class="fab fa-linkedin"></i>
-        <a href="https://www.linkedin.com/in/angel-vasquez-b470ab225/" target="_blank" rel="noopener">linkedin.com/in/angel-vasquez-b470ab225</a>
-      </p>
+      <p><i class="fas fa-envelope"></i> <a href="mailto:angeld.3840@gmail.com">angeld.3840@gmail.com</a></p>
+      <p><i class="fab fa-github"></i> <a href="https://github.com/Abrito101" target="_blank" rel="noopener">github.com/Abrito101</a></p>
+      <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/angel-vasquez-b470ab225/" target="_blank" rel="noopener">linkedin.com/in/angel-vasquez-b470ab225</a></p>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>© 2025 Angel Vasquez </p>
+    <p>© 2025 Angel Vasquez</p>
   </footer>
 
-  <!-- ✅ Carousel script moved here -->
+  <!-- Carousel script -->
   <script>
   (function () {
     function setupCarousel(root) {
@@ -123,21 +204,20 @@ He has experience in networking and system administration, including configuring
       let index = 0;
       let isPointerDown = false, startX = 0, currentX = 0, startOffset = 0;
 
-      // Build dots
-    // Build dots
-if (dotsWrap) {
-  slides.forEach((_, i) => {
-    const b = document.createElement("button");
-    b.type = "button";
-    b.setAttribute("role", "tab");
-    b.setAttribute("aria-label", "Go to slide " + (i + 1));
-    if (i === 0) b.setAttribute("aria-selected", "true");
-    b.addEventListener("click", () => goTo(i));
-    dotsWrap.appendChild(b);
-  });
-}
-const dots = dotsWrap ? Array.from(dotsWrap.children) : [];
-
+      // dots
+      let dots = [];
+      if (dotsWrap) {
+        slides.forEach((_, i) => {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.setAttribute("role", "tab");
+          b.setAttribute("aria-label", "Go to slide " + (i + 1));
+          if (i === 0) b.setAttribute("aria-selected", "true");
+          b.addEventListener("click", () => goTo(i));
+          dotsWrap.appendChild(b);
+        });
+        dots = Array.from(dotsWrap.children);
+      }
 
       function update() {
         const offset = -index * viewport.clientWidth;
@@ -194,100 +274,82 @@ const dots = dotsWrap ? Array.from(dotsWrap.children) : [];
     document.querySelectorAll("[data-carousel]").forEach(setupCarousel);
   })();
   </script>
-<!-- Lightbox (full-screen image viewer) -->
-<div id="lightbox" aria-hidden="true" style="display:none;">
-  <div class="lb-overlay" data-lb-close></div>
-  <figure class="lb-content" role="dialog" aria-modal="true" aria-label="Slide">
-    <button class="lb-close" aria-label="Close" data-lb-close>&times;</button>
-    <button class="lb-nav lb-prev" aria-label="Previous" data-lb-prev>&larr;</button>
-    <img class="lb-img" src="" alt="Expanded slide">
-    <button class="lb-nav lb-next" aria-label="Next" data-lb-next>&rarr;</button>
-    <figcaption class="lb-cap"><span data-lb-count>1/8</span></figcaption>
-  </figure>
-</div>  
-<script>
-(function(){
-  const root = document.querySelector('[data-carousel]');
-  if (!root) return;
-  const prevBtn = root.querySelector('[data-carousel-prev]');
-  const nextBtn = root.querySelector('[data-carousel-next]');
-  const backBtn = document.querySelector('[data-carousel-back]');
-  const nextBottomBtn = document.querySelector('[data-carousel-next-btn]');
 
-  backBtn?.addEventListener('click', ()=> prevBtn?.click());
-  nextBottomBtn?.addEventListener('click', ()=> nextBtn?.click());
-})();
-</script>
-<script>
-(function(){
-  // Collect all slides in the first carousel (adjust selector if you add more carousels)
-  const carousels = document.querySelectorAll('[data-carousel]');
-  if (!carousels.length) return;
-  const root = carousels[0];
-  const imgs = Array.from(root.querySelectorAll('[data-carousel-track] img'));
+  <!-- Lightbox (full-screen image viewer) -->
+  <div id="lightbox" hidden aria-hidden="true">
+    <div class="lb-overlay" data-lb-close></div>
+    <figure class="lb-content" role="dialog" aria-modal="true" aria-label="Slide">
+      <button class="lb-close" aria-label="Close" data-lb-close>&times;</button>
+      <button class="lb-nav lb-prev" aria-label="Previous" data-lb-prev>&larr;</button>
+      <img class="lb-img" src="" alt="Expanded slide">
+      <button class="lb-nav lb-next" aria-label="Next" data-lb-next>&rarr;</button>
+      <figcaption class="lb-cap"><span data-lb-count>1/8</span></figcaption>
+    </figure>
+  </div>
 
-  // Lightbox elements
-  const lb = document.getElementById('lightbox');
-  const lbImg = lb?.querySelector('.lb-img');
-  const lbCount = lb?.querySelector('[data-lb-count]');
-  const btnClose = lb?.querySelectorAll('[data-lb-close]');
-  const btnPrev = lb?.querySelector('[data-lb-prev]');
-  const btnNext = lb?.querySelector('[data-lb-next]');
-  let i = 0;
-
-  function render(){
-    if (!lb || !lbImg) return;
-    lbImg.src = imgs[i].src;
-    lbImg.alt = imgs[i].alt || 'Expanded slide';
-    if (lbCount) lbCount.textContent = (i+1) + '/' + imgs.length;
-  }
-  function open(n){
-    i = Math.max(0, Math.min(n, imgs.length-1));
-    lb.setAttribute('aria-hidden','false');
-    lb.style.display = 'block';
-    render();
-  }
-  function close(){
-    lb.setAttribute('aria-hidden','true');
-    lb.style.display = 'none';
-  }
-  function prev(){ i = (i-1+imgs.length)%imgs.length; render(); }
-  function next(){ i = (i+1)%imgs.length; render(); }
-
-  imgs.forEach((img, idx)=> img.addEventListener('click', ()=>open(idx)));
-  btnPrev?.addEventListener('click', prev);
-  btnNext?.addEventListener('click', next);
-  btnClose?.forEach(btn=>btn.addEventListener('click', close));
-  lb?.addEventListener('click', (e)=>{ if (e.target.matches('[data-lb-close], .lb-overlay')) close(); });
-  window.addEventListener('keydown', (e)=>{
-    if (lb?.getAttribute('aria-hidden') === 'true') return;
-    if (e.key === 'Escape') close();
-    if (e.key === 'ArrowLeft') prev();
-    if (e.key === 'ArrowRight') next();
-  });
-})();
-</script>
-  <!-- ✅ Your lightbox script ends here -->
+  <!-- Lightbox script: click image OR eye icon to expand -->
   <script>
   (function(){
-    // For each carousel on the page, wire its bottom arrows to the same handlers
-    document.querySelectorAll('[data-carousel]').forEach(root => {
-      const prevTop = root.querySelector('[data-carousel-prev]');
-      const nextTop = root.querySelector('[data-carousel-next]');
+    const carousel = document.querySelector('[data-carousel]');
+    if (!carousel) return;
 
-      // Find the bottom controls in the same project card as this carousel
-      const card = root.closest('.project-card') || document;
-      const prevBottom = card.querySelector('[data-carousel-back]');
-      const nextBottom = card.querySelector('[data-carousel-next-btn]');
+    // All images inside the first carousel
+    const imgs = Array.from(carousel.querySelectorAll('[data-carousel-track] img'));
 
-      // Forward clicks to the real next/prev buttons so dots & state update correctly
-      prevBottom?.addEventListener('click', () => prevTop?.click());
-      nextBottom?.addEventListener('click', () => nextTop?.click());
+    // Lightbox elements
+    const lb = document.getElementById('lightbox');
+    const lbImg = lb.querySelector('.lb-img');
+    const lbCount = lb.querySelector('[data-lb-count]');
+    const btnPrev = lb.querySelector('[data-lb-prev]');
+    const btnNext = lb.querySelector('[data-lb-next]');
+    const btnCloseAll = lb.querySelectorAll('[data-lb-close]');
+
+    let i = 0;
+
+    function render(){
+      lbImg.src = imgs[i].src;
+      lbImg.alt = imgs[i].alt || 'Expanded slide';
+      lbCount.textContent = (i+1) + '/' + imgs.length;
+    }
+    function open(n){
+      i = Math.max(0, Math.min(n, imgs.length-1));
+      lb.removeAttribute('hidden');
+      lb.setAttribute('aria-hidden','false');
+      render();
+    }
+    function close(){
+      lb.setAttribute('aria-hidden','true');
+      lb.setAttribute('hidden','');
+    }
+    function prev(){ i = (i-1 + imgs.length) % imgs.length; render(); }
+    function next(){ i = (i+1) % imgs.length; render(); }
+
+    // Click image to expand
+    imgs.forEach((img, idx)=> img.addEventListener('click', ()=>open(idx)));
+
+    // Click eye icon to expand
+    document.querySelectorAll('[data-expand]').forEach(btn => {
+      btn.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        const idx = parseInt(btn.dataset.expand, 10);
+        open(idx);
+      });
+    });
+
+    // Lightbox controls
+    btnPrev.addEventListener('click', prev);
+    btnNext.addEventListener('click', next);
+    btnCloseAll.forEach(b=> b.addEventListener('click', close));
+    lb.addEventListener('click', (e)=>{ if (e.target.matches('[data-lb-close], .lb-overlay')) close(); });
+    window.addEventListener('keydown', (e)=>{
+      if (lb.hasAttribute('hidden')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') prev();
+      if (e.key === 'ArrowRight') next();
     });
   })();
   </script>
 </body>
 </html>
-</body>
-</html>
+
 
