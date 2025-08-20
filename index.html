@@ -5,63 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Angel Vasquez — Portfolio</title>
 
-  <!-- Fonts & CSS -->
+  <!-- Fonts & site CSS -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-
-  <!-- Font Awesome (for eye icon) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-  <!-- Minimal add-ons: eye icon + lightbox styles -->
-  <style>
-    /* screen reader helper */
-    .sr-only{
-      position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
-      clip:rect(0,0,0,0); white-space:nowrap; border:0;
-    }
-
-    /* eye icon overlay on each slide */
-    .slide{ position:relative; }
-    .slide .expand{
-      position:absolute; top:10px; right:10px;
-      display:inline-grid; place-items:center;
-      width:36px; height:36px; border-radius:999px; border:0;
-      background:rgba(0,0,0,.6); color:#fff; cursor:pointer;
-      opacity:0; transform:translateY(-2px);
-      transition:opacity .2s ease, transform .2s ease, background .2s ease;
-      z-index:2;
-    }
-    .slide:hover .expand, .slide:focus-within .expand{ opacity:1; transform:translateY(0); }
-    .slide .expand:hover{ background:rgba(0,0,0,.85); }
-    .slide .expand i{ font-size:14px; }
-    @media (hover:none){ .slide .expand{ opacity:1; transform:none; } }
-
-    /* lightbox */
-    #lightbox[hidden]{ display:none !important; }
-    #lightbox{ position:fixed; inset:0; z-index:1000; }
-    .lb-overlay{ position:absolute; inset:0; background:rgba(0,0,0,.85); backdrop-filter:blur(2px); }
-    .lb-content{
-      position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
-      width:min(96vw,1100px); height:min(90vh,800px);
-      margin:0; display:grid; grid-template-rows:1fr auto; gap:.5rem;
-      align-items:center; justify-items:center;
-    }
-    .lb-img{ max-width:100%; max-height:100%; object-fit:contain; border-radius:12px; background:#111; }
-    .lb-close{
-      position:absolute; top:-44px; right:0; width:40px; height:40px; border:0; border-radius:999px;
-      background:rgba(255,255,255,.15); color:#fff; cursor:pointer; font-size:1.25rem;
-    }
-    .lb-nav{
-      position:absolute; top:50%; transform:translateY(-50%);
-      width:44px; height:44px; border:0; border-radius:999px; background:rgba(255,255,255,.15);
-      color:#fff; cursor:pointer; font-size:1.1rem;
-    }
-    .lb-prev{ left:-56px } .lb-next{ right:-56px }
-    .lb-cap{ color:#ddd; font-size:.95rem }
-    @media (max-width:900px){
-      .lb-prev{ left:4px } .lb-next{ right:4px } .lb-close{ top:4px; right:4px }
-    }
-  </style>
 </head>
 
 <body>
@@ -87,78 +33,49 @@
 
     <section id="about" class="container">
       <h3>About</h3>
-      <p> Angel Vasquez is a dedicated cybersecurity and IT professional with a strong passion for continuous learning. He holds an Associate degree in Cybersecurity and serves in the Air National Guard, specializing in Cyber Defense Operations. Angel is actively expanding his technical expertise through hands-on projects, including the development of a personal home lab.
-
-He has experience in networking and system administration, including configuring VLANs, managing Active Directory in both Linux and Windows environments, and creating user accounts. His cybersecurity experience includes deploying and configuring SNORT IDS, building honeypots, and analyzing malware such as Zeus. Angel has also sharpened his offensive security skills through TryHackMe capture-the-flag challenges using Kali Linux. </p>
+      <p>
+        Angel Vasquez is a dedicated cybersecurity and IT professional with a strong passion for continuous learning.
+        He holds an Associate degree in Cybersecurity and serves in the Air National Guard, specializing in Cyber Defense Operations.
+        Angel is actively expanding his technical expertise through hands-on projects, including the development of a personal home lab.
+      </p>
+      <p>
+        He has experience in networking and system administration, including configuring VLANs, managing Active Directory in both Linux and Windows environments,
+        and creating user accounts. His cybersecurity experience includes deploying and configuring SNORT IDS, building honeypots, and analyzing malware such as Zeus.
+        Angel has also sharpened his offensive security skills through TryHackMe capture-the-flag challenges using Kali Linux.
+      </p>
     </section>
 
     <section id="projects" class="container">
       <h3>Projects</h3>
       <div class="project-grid">
-
         <!-- College Projects -->
         <article class="project-card">
           <h4>College Projects</h4>
           <p>These are some of my favorite projects that I worked on in my university Associates Program at Mohawk Valley Community College.</p>
 
+          <!-- Carousel -->
           <div class="carousel" data-carousel tabindex="0" aria-label="College Projects slideshow">
-            <!-- matching arrows -->
+            <!-- left arrow -->
             <button class="nav prev" aria-label="Previous slide" data-carousel-prev></button>
 
             <div class="viewport" data-carousel-viewport>
               <ul class="track" data-carousel-track>
-                <li class="slide" aria-label="Slide 1 of 8">
-                  <img src="./1.jpg" alt="Project slide 1" loading="lazy" decoding="async" fetchpriority="low">
-                  <button class="expand" aria-label="Expand slide 1" data-expand="0">
-                    <i class="fas fa-eye" aria-hidden="true"></i><span class="sr-only">Expand</span>
-                  </button>
-                </li>
-                <li class="slide" aria-label="Slide 2 of 8">
-                  <img src="./2.jpg" alt="Project slide 2" loading="lazy" decoding="async" fetchpriority="low">
-                  <button class="expand" aria-label="Expand slide 2" data-expand="1">
-                    <i class="fas fa-eye" aria-hidden="true"></i><span class="sr-only">Expand</span>
-                  </button>
-                </li>
-                <li class="slide" aria-label="Slide 3 of 8">
-                  <img src="./3.jpg" alt="Project slide 3" loading="lazy" decoding="async" fetchpriority="low">
-                  <button class="expand" aria-label="Expand slide 3" data-expand="2">
-                    <i class="fas fa-eye" aria-hidden="true"></i><span class="sr-only">Expand</span>
-                  </button>
-                </li>
-                <li class="slide" aria-label="Slide 4 of 8">
-                  <img src="./4.jpg" alt="Project slide 4" loading="lazy" decoding="async" fetchpriority="low">
-                  <button class="expand" aria-label="Expand slide 4" data-expand="3">
-                    <i class="fas fa-eye" aria-hidden="true"></i><span class="sr-only">Expand</span>
-                  </button>
-                </li>
-                <li class="slide" aria-label="Slide 5 of 8">
-                  <img src="./5.jpg" alt="Project slide 5" loading="lazy" decoding="async" fetchpriority="low">
-                  <button class="expand" aria-label="Expand slide 5" data-expand="4">
-                    <i class="fas fa-eye" aria-hidden="true"></i><span class="sr-only">Expand</span>
-                  </button>
-                </li>
-                <li class="slide" aria-label="Slide 6 of 8">
-                  <img src="./6.jpg" alt="Project slide 6" loading="lazy" decoding="async" fetchpriority="low">
-                  <button class="expand" aria-label="Expand slide 6" data-expand="5">
-                    <i class="fas fa-eye" aria-hidden="true"></i><span class="sr-only">Expand</span>
-                  </button>
-                </li>
-                <li class="slide" aria-label="Slide 7 of 8">
-                  <img src="./7.jpg" alt="Project slide 7" loading="lazy" decoding="async" fetchpriority="low">
-                  <button class="expand" aria-label="Expand slide 7" data-expand="6">
-                    <i class="fas fa-eye" aria-hidden="true"></i><span class="sr-only">Expand</span>
-                  </button>
-                </li>
-                <li class="slide" aria-label="Slide 8 of 8">
-                  <img src="./8.jpg" alt="Project slide 8" loading="lazy" decoding="async" fetchpriority="low">
-                  <button class="expand" aria-label="Expand slide 8" data-expand="7">
-                    <i class="fas fa-eye" aria-hidden="true"></i><span class="sr-only">Expand</span>
-                  </button>
-                </li>
+                <!-- Slides (images only; expand control is added in JS) -->
+                <li class="slide"><img src="./1.jpg" alt="Project slide 1"></li>
+                <li class="slide"><img src="./2.jpg" alt="Project slide 2"></li>
+                <li class="slide"><img src="./3.jpg" alt="Project slide 3"></li>
+                <li class="slide"><img src="./4.jpg" alt="Project slide 4"></li>
+                <li class="slide"><img src="./5.jpg" alt="Project slide 5"></li>
+                <li class="slide"><img src="./6.jpg" alt="Project slide 6"></li>
+                <li class="slide"><img src="./7.jpg" alt="Project slide 7"></li>
+                <li class="slide"><img src="./8.jpg" alt="Project slide 8"></li>
               </ul>
             </div>
 
+            <!-- right arrow -->
             <button class="nav next" aria-label="Next slide" data-carousel-next></button>
+
+            <!-- dots -->
             <div class="dots" role="tablist" aria-label="Slide navigation" data-carousel-dots></div>
           </div>
         </article>
@@ -174,15 +91,14 @@ He has experience in networking and system administration, including configuring
 
     <section id="resume" class="container">
       <h3>Resume</h3>
-      <!-- Keep as-is for now; swap to an image preview later if you want -->
-      <iframe src="Resume.pdf" width="100%" height="800px" style="border:1px solid #ccc;"></iframe>
+      <iframe src="Resume.pdf" width="100%" height="800" style="border:1px solid #ccc;"></iframe>
     </section>
 
     <section id="contact" class="container">
       <h3>Contact</h3>
-      <p><i class="fas fa-envelope"></i> <a href="mailto:angeld.3840@gmail.com">angeld.3840@gmail.com</a></p>
-      <p><i class="fab fa-github"></i> <a href="https://github.com/Abrito101" target="_blank" rel="noopener">github.com/Abrito101</a></p>
-      <p><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/angel-vasquez-b470ab225/" target="_blank" rel="noopener">linkedin.com/in/angel-vasquez-b470ab225</a></p>
+      <p><strong>Email:</strong> <a href="mailto:angeld.3840@gmail.com">angeld.3840@gmail.com</a></p>
+      <p><strong>GitHub:</strong> <a href="https://github.com/Abrito101" target="_blank" rel="noopener">github.com/Abrito101</a></p>
+      <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/angel-vasquez-b470ab225/" target="_blank" rel="noopener">linkedin.com/in/angel-vasquez-b470ab225</a></p>
     </section>
   </main>
 
@@ -190,28 +106,116 @@ He has experience in networking and system administration, including configuring
     <p>© 2025 Angel Vasquez</p>
   </footer>
 
-  <!-- Carousel script -->
+  <!-- ===== Carousel + Lightbox Script (single unified script) ===== -->
   <script>
   (function () {
-    function setupCarousel(root) {
-      const track = root.querySelector("[data-carousel-track]");
+    /** UTIL **/
+    function el(tag, attrs = {}, html = "") {
+      const n = document.createElement(tag);
+      Object.entries(attrs).forEach(([k, v]) => {
+        if (k === "class") n.className = v;
+        else if (k.startsWith("on") && typeof v === "function") n.addEventListener(k.slice(2), v);
+        else n.setAttribute(k, v);
+      });
+      if (html) n.innerHTML = html;
+      return n;
+    }
+
+    /** LIGHTBOX (single instance) **/
+    const lightbox = el("div", { id: "lightbox", hidden: "" });
+    lightbox.innerHTML = `
+      <div class="lb-overlay" data-lb-close></div>
+      <figure class="lb-content" role="dialog" aria-modal="true" aria-label="Slide">
+        <button class="lb-close" aria-label="Close" data-lb-close>&times;</button>
+        <button class="lb-nav lb-prev" aria-label="Previous" data-lb-prev>&larr;</button>
+        <img class="lb-img" src="" alt="Expanded slide">
+        <button class="lb-nav lb-next" aria-label="Next" data-lb-next>&rarr;</button>
+        <figcaption class="lb-cap"><span data-lb-count>1/1</span></figcaption>
+      </figure>`;
+    document.body.appendChild(lightbox);
+
+    const lbImg   = lightbox.querySelector(".lb-img");
+    const lbCount = lightbox.querySelector("[data-lb-count]");
+    const lbPrev  = lightbox.querySelector("[data-lb-prev]");
+    const lbNext  = lightbox.querySelector("[data-lb-next]");
+    const lbCloseBtns = lightbox.querySelectorAll("[data-lb-close]");
+
+    let lbList = []; // list of images for the current carousel
+    let lbIndex = 0;
+
+    function lbRender() {
+      if (!lbList.length) return;
+      lbImg.src = lbList[lbIndex].src;
+      lbImg.alt = lbList[lbIndex].alt || "Expanded slide";
+      lbCount.textContent = (lbIndex + 1) + "/" + lbList.length;
+    }
+    function lbOpen(images, startIndex) {
+      lbList = images;
+      lbIndex = Math.max(0, Math.min(startIndex, lbList.length - 1));
+      lightbox.removeAttribute("hidden");
+      lightbox.setAttribute("aria-hidden", "false");
+      lbRender();
+    }
+    function lbClose() {
+      lightbox.setAttribute("aria-hidden", "true");
+      lightbox.setAttribute("hidden", "");
+    }
+    function lbPrevFn(){ lbIndex = (lbIndex - 1 + lbList.length) % lbList.length; lbRender(); }
+    function lbNextFn(){ lbIndex = (lbIndex + 1) % lbList.length; lbRender(); }
+
+    lbPrev.addEventListener("click", lbPrevFn);
+    lbNext.addEventListener("click", lbNextFn);
+    lbCloseBtns.forEach(b => b.addEventListener("click", lbClose));
+    lightbox.addEventListener("click", (e) => {
+      if (e.target.matches(".lb-overlay,[data-lb-close]")) lbClose();
+    });
+    window.addEventListener("keydown", (e) => {
+      if (lightbox.hasAttribute("hidden")) return;
+      if (e.key === "Escape") lbClose();
+      if (e.key === "ArrowLeft") lbPrevFn();
+      if (e.key === "ArrowRight") lbNextFn();
+    });
+
+    /** CAROUSEL **/
+    document.querySelectorAll("[data-carousel]").forEach((root) => {
+      const track    = root.querySelector("[data-carousel-track]");
       const viewport = root.querySelector("[data-carousel-viewport]") || root.querySelector(".viewport");
-      const slides = Array.from(track.querySelectorAll(".slide"));
-      const prevBtn = root.querySelector("[data-carousel-prev]");
-      const nextBtn = root.querySelector("[data-carousel-next]");
+      const prevBtn  = root.querySelector("[data-carousel-prev]");
+      const nextBtn  = root.querySelector("[data-carousel-next]");
       const dotsWrap = root.querySelector("[data-carousel-dots]");
 
-      let index = 0;
-      let isPointerDown = false, startX = 0, currentX = 0, startOffset = 0;
+      const slides = Array.from(track.querySelectorAll(".slide"));
+      const imgs   = slides.map(s => s.querySelector("img"));
 
-      // dots
+      // Add eye icon overlay button to each slide
+      slides.forEach((slide, i) => {
+        const eyeBtn = el(
+          "button",
+          { class: "expand", "aria-label": "Expand slide " + (i + 1), "data-expand": String(i) },
+          // Inline SVG ensures perfect centering/availability (no external icon font needed)
+          `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" style="display:block">
+             <path fill="currentColor" d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12a5 5 0 110-10 5 5 0 010 10zm0-2.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/>
+           </svg>`
+        );
+        eyeBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          lbOpen(imgs, i);
+        });
+        slide.appendChild(eyeBtn);
+
+        // Clicking the image also opens lightbox
+        imgs[i].addEventListener("click", () => lbOpen(imgs, i));
+        // Performance attrs
+        imgs[i].setAttribute("loading", "lazy");
+        imgs[i].setAttribute("decoding", "async");
+        imgs[i].setAttribute("fetchpriority", "low");
+      });
+
+      // Dots
       let dots = [];
       if (dotsWrap) {
         slides.forEach((_, i) => {
-          const b = document.createElement("button");
-          b.type = "button";
-          b.setAttribute("role", "tab");
-          b.setAttribute("aria-label", "Go to slide " + (i + 1));
+          const b = el("button", { type: "button", role: "tab", "aria-label": "Go to slide " + (i + 1) });
           if (i === 0) b.setAttribute("aria-selected", "true");
           b.addEventListener("click", () => goTo(i));
           dotsWrap.appendChild(b);
@@ -219,47 +223,47 @@ He has experience in networking and system administration, including configuring
         dots = Array.from(dotsWrap.children);
       }
 
+      // State
+      let index = 0;
       function update() {
         const offset = -index * viewport.clientWidth;
         track.style.transform = `translateX(${offset}px)`;
         dots.forEach((d, i) => d.setAttribute("aria-selected", i === index ? "true" : "false"));
       }
       function goTo(i) { index = Math.max(0, Math.min(i, slides.length - 1)); update(); }
-      function next() { goTo(index + 1); }
-      function prev() { goTo(index - 1); }
+      function next()  { goTo(index + 1); }
+      function prev()  { goTo(index - 1); }
 
+      // Buttons/keys
       nextBtn.addEventListener("click", next);
       prevBtn.addEventListener("click", prev);
-
       root.addEventListener("keydown", (e) => {
         if (e.key === "ArrowRight") { e.preventDefault(); next(); }
         if (e.key === "ArrowLeft")  { e.preventDefault(); prev(); }
       });
 
-      window.addEventListener("resize", update);
-
+      // Drag / swipe
+      let isDown = false, startX = 0, curX = 0, startOffset = 0;
       const threshold = () => viewport.clientWidth * 0.18;
+
       viewport.addEventListener("pointerdown", (e) => {
-        isPointerDown = true;
-        startX = e.clientX;
-        currentX = e.clientX;
+        isDown = true;
+        startX = curX = e.clientX;
         startOffset = -index * viewport.clientWidth;
         track.style.transition = "none";
         viewport.setPointerCapture(e.pointerId);
       });
-
       viewport.addEventListener("pointermove", (e) => {
-        if (!isPointerDown) return;
-        currentX = e.clientX;
-        const dx = currentX - startX;
+        if (!isDown) return;
+        curX = e.clientX;
+        const dx = curX - startX;
         track.style.transform = `translateX(${startOffset + dx}px)`;
       });
-
       function endPointer(e) {
-        if (!isPointerDown) return;
-        isPointerDown = false;
+        if (!isDown) return;
+        isDown = false;
         track.style.transition = "";
-        const dx = currentX - startX;
+        const dx = curX - startX;
         if (dx < -threshold()) next();
         else if (dx > threshold()) prev();
         else update();
@@ -269,83 +273,10 @@ He has experience in networking and system administration, including configuring
       viewport.addEventListener("pointercancel", endPointer);
       viewport.addEventListener("pointerleave", endPointer);
 
+      window.addEventListener("resize", update);
+
+      // Init
       update();
-    }
-    document.querySelectorAll("[data-carousel]").forEach(setupCarousel);
-  })();
-  </script>
-
-  <!-- Lightbox (full-screen image viewer) -->
-  <div id="lightbox" hidden aria-hidden="true">
-    <div class="lb-overlay" data-lb-close></div>
-    <figure class="lb-content" role="dialog" aria-modal="true" aria-label="Slide">
-      <button class="lb-close" aria-label="Close" data-lb-close>&times;</button>
-      <button class="lb-nav lb-prev" aria-label="Previous" data-lb-prev>&larr;</button>
-      <img class="lb-img" src="" alt="Expanded slide">
-      <button class="lb-nav lb-next" aria-label="Next" data-lb-next>&rarr;</button>
-      <figcaption class="lb-cap"><span data-lb-count>1/8</span></figcaption>
-    </figure>
-  </div>
-
-  <!-- Lightbox script: click image OR eye icon to expand -->
-  <script>
-  (function(){
-    const carousel = document.querySelector('[data-carousel]');
-    if (!carousel) return;
-
-    // All images inside the first carousel
-    const imgs = Array.from(carousel.querySelectorAll('[data-carousel-track] img'));
-
-    // Lightbox elements
-    const lb = document.getElementById('lightbox');
-    const lbImg = lb.querySelector('.lb-img');
-    const lbCount = lb.querySelector('[data-lb-count]');
-    const btnPrev = lb.querySelector('[data-lb-prev]');
-    const btnNext = lb.querySelector('[data-lb-next]');
-    const btnCloseAll = lb.querySelectorAll('[data-lb-close]');
-
-    let i = 0;
-
-    function render(){
-      lbImg.src = imgs[i].src;
-      lbImg.alt = imgs[i].alt || 'Expanded slide';
-      lbCount.textContent = (i+1) + '/' + imgs.length;
-    }
-    function open(n){
-      i = Math.max(0, Math.min(n, imgs.length-1));
-      lb.removeAttribute('hidden');
-      lb.setAttribute('aria-hidden','false');
-      render();
-    }
-    function close(){
-      lb.setAttribute('aria-hidden','true');
-      lb.setAttribute('hidden','');
-    }
-    function prev(){ i = (i-1 + imgs.length) % imgs.length; render(); }
-    function next(){ i = (i+1) % imgs.length; render(); }
-
-    // Click image to expand
-    imgs.forEach((img, idx)=> img.addEventListener('click', ()=>open(idx)));
-
-    // Click eye icon to expand
-    document.querySelectorAll('[data-expand]').forEach(btn => {
-      btn.addEventListener('click', (e)=>{
-        e.stopPropagation();
-        const idx = parseInt(btn.dataset.expand, 10);
-        open(idx);
-      });
-    });
-
-    // Lightbox controls
-    btnPrev.addEventListener('click', prev);
-    btnNext.addEventListener('click', next);
-    btnCloseAll.forEach(b=> b.addEventListener('click', close));
-    lb.addEventListener('click', (e)=>{ if (e.target.matches('[data-lb-close], .lb-overlay')) close(); });
-    window.addEventListener('keydown', (e)=>{
-      if (lb.hasAttribute('hidden')) return;
-      if (e.key === 'Escape') close();
-      if (e.key === 'ArrowLeft') prev();
-      if (e.key === 'ArrowRight') next();
     });
   })();
   </script>
