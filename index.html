@@ -42,44 +42,53 @@ He has experience in networking and system administration, including configuring
   <h4>College Projects</h4>
   <p>These are some of my favorite projects that I worked on in my university Associates Program at Mohawk Valley Community College.</p>
 
-  <div class="carousel" data-carousel tabindex="0" aria-label="College Projects slideshow">
-    <!-- TOP ARROWS (both present) -->
-    <button class="nav prev" aria-label="Previous slide" data-carousel-prev></button>
+  <section id="projects" class="container">
+  <h3>Projects</h3>
 
-    <div class="viewport" data-carousel-viewport>
-      <ul class="track" data-carousel-track>
-        <li class="slide" aria-label="Slide 1 of 8"><img src="./1.jpg" alt="Project slide 1" loading="lazy" decoding="async" fetchpriority="low"></li>
-        <li class="slide" aria-label="Slide 2 of 8"><img src="./2.jpg" alt="Project slide 2" loading="lazy" decoding="async" fetchpriority="low"></li>
-        <li class="slide" aria-label="Slide 3 of 8"><img src="./3.jpg" alt="Project slide 3" loading="lazy" decoding="async" fetchpriority="low"></li>
-        <li class="slide" aria-label="Slide 4 of 8"><img src="./4.jpg" alt="Project slide 4" loading="lazy" decoding="async" fetchpriority="low"></li>
-        <li class="slide" aria-label="Slide 5 of 8"><img src="./5.jpg" alt="Project slide 5" loading="lazy" decoding="async" fetchpriority="low"></li>
-        <li class="slide" aria-label="Slide 6 of 8"><img src="./6.jpg" alt="Project slide 6" loading="lazy" decoding="async" fetchpriority="low"></li>
-        <li class="slide" aria-label="Slide 7 of 8"><img src="./7.jpg" alt="Project slide 7" loading="lazy" decoding="async" fetchpriority="low"></li>
-        <li class="slide" aria-label="Slide 8 of 8"><img src="./8.jpg" alt="Project slide 8" loading="lazy" decoding="async" fetchpriority="low"></li>
-      </ul>
-    </div>
+  <div class="project-grid">
+    <!-- College Projects -->
+    <article class="project-card">
+      <h4>College Projects</h4>
+      <p>These are some of my favorite projects that I worked on in my university Associates Program at Mohawk Valley Community College.</p>
 
-    <button class="nav next" aria-label="Next slide" data-carousel-next></button>
-     <button class="nav prev" aria-label="Previous slide" data-carousel-prev></button>
-    <div class="dots" role="tablist" aria-label="Slide navigation" data-carousel-dots></div>
-  </div>
+      <!-- Carousel -->
+      <div class="carousel" data-carousel tabindex="0" aria-label="College Projects slideshow">
+        <!-- top arrows (both) -->
+        <button class="nav prev" aria-label="Previous slide" data-carousel-prev></button>
 
+        <div class="viewport" data-carousel-viewport>
+          <ul class="track" data-carousel-track>
+            <li class="slide" aria-label="Slide 1 of 8"><img src="./1.jpg" alt="Project slide 1" loading="lazy" decoding="async" fetchpriority="low"></li>
+            <li class="slide" aria-label="Slide 2 of 8"><img src="./2.jpg" alt="Project slide 2" loading="lazy" decoding="async" fetchpriority="low"></li>
+            <li class="slide" aria-label="Slide 3 of 8"><img src="./3.jpg" alt="Project slide 3" loading="lazy" decoding="async" fetchpriority="low"></li>
+            <li class="slide" aria-label="Slide 4 of 8"><img src="./4.jpg" alt="Project slide 4" loading="lazy" decoding="async" fetchpriority="low"></li>
+            <li class="slide" aria-label="Slide 5 of 8"><img src="./5.jpg" alt="Project slide 5" loading="lazy" decoding="async" fetchpriority="low"></li>
+            <li class="slide" aria-label="Slide 6 of 8"><img src="./6.jpg" alt="Project slide 6" loading="lazy" decoding="async" fetchpriority="low"></li>
+            <li class="slide" aria-label="Slide 7 of 8"><img src="./7.jpg" alt="Project slide 7" loading="lazy" decoding="async" fetchpriority="low"></li>
+            <li class="slide" aria-label="Slide 8 of 8"><img src="./8.jpg" alt="Project slide 8" loading="lazy" decoding="async" fetchpriority="low"></li>
+          </ul>
+        </div>
 
-</article>
-
-
-
-      
-</article>
-
-
-        <article class="project-card">
-          <h4>Project Two</h4>
-          <p>Short description. Tech used: Python, Flask.</p>
-          <a href="#" target="_blank" rel="noopener">View project</a>
-        </article>
+        <button class="nav next" aria-label="Next slide" data-carousel-next></button>
+        <div class="dots" role="tablist" aria-label="Slide navigation" data-carousel-dots></div>
       </div>
-    </section>
+
+      <!-- bottom arrows (matching style) -->
+      <div style="margin-top:.5rem; display:flex; gap:.5rem; align-items:center">
+        <button class="nav prev" aria-label="Previous slide" data-carousel-back></button>
+        <button class="nav next" aria-label="Next slide" data-carousel-next-btn></button>
+        <a class="btn" href="./1.jpg" target="_blank" rel="noopener">Open first slide</a>
+      </div>
+    </article>
+
+    <!-- Example second card (placeholder) -->
+    <article class="project-card">
+      <h4>Project Two</h4>
+      <p>Short description. Tech used: Python, Flask.</p>
+      <a class="btn" href="#" target="_blank" rel="noopener">View project</a>
+    </article>
+  </div> <!-- /.project-grid -->
+</section>
 
     <section id="resume" class="container">
       <h3>Resume</h3>
