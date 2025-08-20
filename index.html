@@ -8,93 +8,6 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<script>
-(function () {
-  function setupCarousel(root) {
-    const track = root.querySelector("[data-carousel-track]");
-    const viewport = root.querySelector("[data-carousel-viewport]") || root.querySelector(".viewport");
-    const slides = Array.from(track.children);
-    const prevBtn = root.querySelector("[data-carousel-prev]");
-    const nextBtn = root.querySelector("[data-carousel-next]");
-    const dotsWrap = root.querySelector("[data-carousel-dots]");
-
-    let index = 0;
-    let isPointerDown = false, startX = 0, currentX = 0, startOffset = 0;
-
-    // Build dots
-    slides.forEach((_, i) => {
-      const b = document.createElement("button");
-      b.type = "button";
-      b.setAttribute("role", "tab");
-      b.setAttribute("aria-label", "Go to slide " + (i + 1));
-      if (i === 0) b.setAttribute("aria-selected", "true");
-      b.addEventListener("click", () => goTo(i));
-      dotsWrap.appendChild(b);
-    });
-    const dots = Array.from(dotsWrap.children);
-
-    function update() {
-      const offset = -index * viewport.clientWidth;
-      track.style.transform = `translateX(${offset}px)`;
-      dots.forEach((d, i) => d.setAttribute("aria-selected", i === index ? "true" : "false"));
-    }
-    function goTo(i) { index = Math.max(0, Math.min(i, slides.length - 1)); update(); }
-    function next() { goTo(index + 1); }
-    function prev() { goTo(index - 1); }
-
-    // Buttons
-    nextBtn.addEventListener("click", next);
-    prevBtn.addEventListener("click", prev);
-
-    // Keyboard nav
-    root.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowRight") { e.preventDefault(); next(); }
-      if (e.key === "ArrowLeft")  { e.preventDefault(); prev(); }
-    });
-
-    // Resize
-    window.addEventListener("resize", update);
-
-    // Drag / swipe
-    const threshold = () => viewport.clientWidth * 0.18;
-    viewport.addEventListener("pointerdown", (e) => {
-      isPointerDown = true;
-      startX = e.clientX;
-      currentX = e.clientX;
-      startOffset = -index * viewport.clientWidth;
-      track.style.transition = "none";
-      viewport.setPointerCapture(e.pointerId);
-    });
-
-    viewport.addEventListener("pointermove", (e) => {
-      if (!isPointerDown) return;
-      currentX = e.clientX;
-      const dx = currentX - startX;
-      track.style.transform = `translateX(${startOffset + dx}px)`;
-    });
-
-    function endPointer(e) {
-      if (!isPointerDown) return;
-      isPointerDown = false;
-      track.style.transition = "";
-      const dx = currentX - startX;
-      if (dx < -threshold()) next();
-      else if (dx > threshold()) prev();
-      else update();
-      viewport.releasePointerCapture?.(e.pointerId);
-    }
-    viewport.addEventListener("pointerup", endPointer);
-    viewport.addEventListener("pointercancel", endPointer);
-    viewport.addEventListener("pointerleave", endPointer);
-
-    // Init
-    update();
-  }
-
-  document.querySelectorAll("[data-carousel]").forEach(setupCarousel);
-})();
-</script>
-  
 <body>
   <header class="site-header">
     <nav class="nav">
@@ -205,5 +118,91 @@ He has experience in networking and system administration, including configuring
   <footer class="site-footer">
     <p>© 2025 Angel Vasquez </p>
   </footer>
-</body>
+  <script>
+(function () {
+  function setupCarousel(root) {
+    const track = root.querySelector("[data-carousel-track]");
+    const viewport = root.querySelector("[data-carousel-viewport]") || root.querySelector(".viewport");
+    const slides = Array.from(track.children);
+    const prevBtn = root.querySelector("[data-carousel-prev]");
+    const nextBtn = root.querySelector("[data-carousel-next]");
+    const dotsWrap = root.querySelector("[data-carousel-dots]");
+
+    let index = 0;
+    let isPointerDown = false, startX = 0, currentX = 0, startOffset = 0;
+
+    // Build dots
+    slides.forEach((_, i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("role", "tab");
+      b.setAttribute("aria-label", "Go to slide " + (i + 1));
+      if (i === 0) b.setAttribute("aria-selected", "true");
+      b.addEventListener("click", () => goTo(i));
+      dotsWrap.appendChild(b);
+    });
+    const dots = Array.from(dotsWrap.children);
+
+    function update() {
+      const offset = -index * viewport.clientWidth;
+      track.style.transform = `translateX(${offset}px)`;
+      dots.forEach((d, i) => d.setAttribute("aria-selected", i === index ? "true" : "false"));
+    }
+    function goTo(i) { index = Math.max(0, Math.min(i, slides.length - 1)); update(); }
+    function next() { goTo(index + 1); }
+    function prev() { goTo(index - 1); }
+
+    // Buttons
+    nextBtn.addEventListener("click", next);
+    prevBtn.addEventListener("click", prev);
+
+    // Keyboard nav
+    root.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") { e.preventDefault(); next(); }
+      if (e.key === "ArrowLeft")  { e.preventDefault(); prev(); }
+    });
+
+    // Resize
+    window.addEventListener("resize", update);
+
+    // Drag / swipe
+    const threshold = () => viewport.clientWidth * 0.18;
+    viewport.addEventListener("pointerdown", (e) => {
+      isPointerDown = true;
+      startX = e.clientX;
+      currentX = e.clientX;
+      startOffset = -index * viewport.clientWidth;
+      track.style.transition = "none";
+      viewport.setPointerCapture(e.pointerId);
+    });
+
+    viewport.addEventListener("pointermove", (e) => {
+      if (!isPointerDown) return;
+      currentX = e.clientX;
+      const dx = currentX - startX;
+      track.style.transform = `translateX(${startOffset + dx}px)`;
+    });
+
+    function endPointer(e) {
+      if (!isPointerDown) return;
+      isPointerDown = false;
+      track.style.transition = "";
+      const dx = currentX - startX;
+      if (dx < -threshold()) next();
+      else if (dx > threshold()) prev();
+      else update();
+      viewport.releasePointerCapture?.(e.pointerId);
+    }
+    viewport.addEventListener("pointerup", endPointer);
+    viewport.addEventListener("pointercancel", endPointer);
+    viewport.addEventListener("pointerleave", endPointer);
+
+    // Init
+    update();
+  }
+
+  document.querySelectorAll("[data-carousel]").forEach(setupCarousel);
+})();
+</script>
+  </body>
 </html>
