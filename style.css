@@ -1,28 +1,29 @@
-/* Minimal responsive styling */
 :root{
-  --accent: #0073e6;
-  --text: #222;
-  --muted: #666;
-  --max-width: 980px;
-  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  --bg:#0b0c0f; --card:#121318; --border:rgba(255,255,255,.08);
+  --text:#e7e9ee; --muted:#9aa3b2; --brand:#6ee7ff;
+  --radius:16px; --shadow:0 10px 30px rgba(0,0,0,.35);
+  --container:1100px; --gap:1.1rem;
+  --h1:clamp(2rem, 3.5vw, 3rem);
+  --h2:clamp(1.5rem, 2.5vw, 2rem);
+  --h3:clamp(1.25rem, 2vw, 1.5rem);
+  --lead:clamp(1rem, 1.5vw, 1.125rem);
 }
+*{box-sizing:border-box} html,body{margin:0;padding:0}
+body{
+  font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background: radial-gradient(120% 120% at 50% -10%, #12131a, var(--bg));
+  color:var(--text); line-height:1.6;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+img{max-width:100%; display:block}
+a{color:var(--brand); text-decoration:none}
+a:hover{opacity:.9}
+.container{max-width:var(--container); margin:0 auto; padding:2rem 1rem}
+section.container + section.container{margin-top:2rem}
+h1,h2,h3,h4{margin:0 0 .5rem}
+h1{font-size:var(--h1)} h2{font-size:var(--h2)} h3{font-size:var(--h3)}
+p{margin:.5rem 0}
 
-*{box-sizing:border-box}
-body{margin:0;color:var(--text);line-height:1.5;background:#fff}
-.container{max-width:var(--max-width);margin:2rem auto;padding:0 1rem}
-.site-header{border-bottom:1px solid #eee;background:#fff}
-.nav{display:flex;justify-content:space-between;align-items:center;max-width:var(--max-width);margin:0 auto;padding:1rem}
-.logo{font-weight:600}
-.nav-links{list-style:none;display:flex;gap:1rem;margin:0;padding:0}
-.nav-links a{text-decoration:none;color:var(--text)}
-
-.hero{text-align:center;padding:4rem 1rem}
-.hero h2{font-size:clamp(1.4rem,3.2vw,2rem);margin:0}
-.tagline{color:var(--muted);margin-top:.5rem}
-.btn{display:inline-block;margin-top:1rem;padding:.6rem 1rem;border-radius:6px;text-decoration:none;background:var(--accent);color:#fff}
-.project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:1rem}
-.project-card{border:1px solid #eee;padding:1rem;border-radius:6px;background:#fff}
-.site-footer{text-align:center;padding:1.5rem;border-top:1px solid #f1f1f1;color:var(--muted);margin-top:2rem}
 
 /* Mobile tweaks */
 @media (max-width:640px){
