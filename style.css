@@ -24,6 +24,54 @@ h1,h2,h3,h4{margin:0 0 .5rem}
 h1{font-size:var(--h1)} h2{font-size:var(--h2)} h3{font-size:var(--h3)}
 p{margin:.5rem 0}
 
+.site-header{
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: saturate(1.05) blur(8px);
+  background: linear-gradient(180deg, rgba(10,11,14,.85), rgba(10,11,14,.55));
+  border-bottom: 1px solid var(--border);
+}
+.nav{
+  max-width: var(--container); margin: 0 auto; padding: .8rem 1rem;
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+}
+.logo{ font-weight: 700; letter-spacing: .3px }
+.nav p{ color: var(--muted); margin-left: auto; margin-right: auto }
+.nav-links{ list-style: none; display: flex; gap: 1rem; margin: 0 0 0 auto; padding: 0 }
+.nav-links a{ padding: .45rem .8rem; border: 1px solid transparent; border-radius: 999px }
+.nav-links a:hover{ border-color: var(--border); background: rgba(255,255,255,.03) }
+
+.hero{ padding: 5rem 1rem 3rem; text-align: center }
+.hero .tagline{ color: var(--muted); font-size: var(--lead); margin: .5rem auto 1.25rem; max-width: 60ch }
+.btn{
+  display: inline-block; padding: .65rem 1rem; border-radius: 12px;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg,#1a1d25,#121318); color: var(--text);
+  box-shadow: var(--shadow);
+}
+.btn:hover{ transform: translateY(-1px) }
+
+#projects h3{ margin-bottom: 1rem }
+.project-grid{
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--gap);
+}
+.project-card{
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem; box-shadow: var(--shadow);
+  display: flex; flex-direction: column; gap: .6rem;
+}
+.project-card h4{ font-size: 1.05rem }
+.project-card p{ color: var(--muted) }
+.project-card .btn{ align-self: flex-start }
+
+.site-footer{
+  padding: 2rem 1rem; text-align: center; color: var(--muted);
+  border-top: 1px solid var(--border); margin-top: 3rem;
+  background: linear-gradient(180deg, rgba(10,11,14,.25), rgba(10,11,14,.65));
+}
+section.container{ scroll-margin-top: 80px } /* nicer anchor scrolling */
+html{ scroll-behavior: smooth }
+
 
 /* Mobile tweaks */
 @media (max-width:640px){
