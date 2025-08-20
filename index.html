@@ -113,7 +113,7 @@ He has experience in networking and system administration, including configuring
     function setupCarousel(root) {
       const track = root.querySelector("[data-carousel-track]");
       const viewport = root.querySelector("[data-carousel-viewport]") || root.querySelector(".viewport");
-      const slides = Array.from(track.children);
+      const slides = Array.from(track.querySelectorAll(".slide"));
       const prevBtn = root.querySelector("[data-carousel-prev]");
       const nextBtn = root.querySelector("[data-carousel-next]");
       const dotsWrap = root.querySelector("[data-carousel-dots]");
