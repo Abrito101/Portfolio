@@ -38,17 +38,13 @@
 He has experience in networking and system administration, including configuring VLANs, managing Active Directory in both Linux and Windows environments, and creating user accounts. His cybersecurity experience includes deploying and configuring SNORT IDS, building honeypots, and analyzing malware such as Zeus. Angel has also sharpened his offensive security skills through TryHackMe capture-the-flag challenges using Kali Linux. </p>
     </section>
 
-    <section id="projects" class="container">
-      <h3>Projects</h3>
-      <div class="project-grid">
-
-        <!-- College Projects with slideshow -->
-      <article class="project-card">
+    <article class="project-card">
   <h4>College Projects</h4>
   <p>These are some of my favorite projects that I worked on in my university Associates Program at Mohawk Valley Community College.</p>
 
   <div class="carousel" data-carousel tabindex="0" aria-label="College Projects slideshow">
-    <button class="nav prev" aria-label="Previous slide" data-carousel-prev>&larr;</button>
+    <!-- TOP ARROWS (both present) -->
+    <button class="nav prev" aria-label="Previous slide" data-carousel-prev></button>
 
     <div class="viewport" data-carousel-viewport>
       <ul class="track" data-carousel-track>
@@ -61,14 +57,23 @@ He has experience in networking and system administration, including configuring
         <li class="slide" aria-label="Slide 7 of 8"><img src="./7.jpg" alt="Project slide 7" loading="lazy" decoding="async" fetchpriority="low"></li>
         <li class="slide" aria-label="Slide 8 of 8"><img src="./8.jpg" alt="Project slide 8" loading="lazy" decoding="async" fetchpriority="low"></li>
       </ul>
- <div style="margin-top:.5rem; display:flex; gap:.5rem; align-items:center">
-  <button class="nav prev"  aria-label="Previous slide" data-carousel-back></button>
-  <button class="nav next"  aria-label="Next slide"     data-carousel-next-btn></button>
-</div>
+    </div>
+
+    <button class="nav next" aria-label="Next slide" data-carousel-next></button>
+    <div class="dots" role="tablist" aria-label="Slide navigation" data-carousel-dots></div>
+  </div>
+
+  <!-- BOTTOM CONTROLS: OUTSIDE .viewport -->
+  <div style="margin-top:.5rem; display:flex; gap:.5rem; align-items:center">
+    <button class="nav prev" aria-label="Previous slide" data-carousel-back></button>
+    <button class="nav next" aria-label="Next slide" data-carousel-next-btn></button>
+    <a class="btn" href="./1.jpg" target="_blank" rel="noopener">Open first slide</a>
+  </div>
+</article>
 
 
 
-
+      
 </article>
 
 
