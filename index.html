@@ -186,6 +186,17 @@ const dots = dotsWrap ? Array.from(dotsWrap.children) : [];
     document.querySelectorAll("[data-carousel]").forEach(setupCarousel);
   })();
   </script>
+<!-- Lightbox (full-screen image viewer) -->
+<div id="lightbox" aria-hidden="true" style="display:none;">
+  <div class="lb-overlay" data-lb-close></div>
+  <figure class="lb-content" role="dialog" aria-modal="true" aria-label="Slide">
+    <button class="lb-close" aria-label="Close" data-lb-close>&times;</button>
+    <button class="lb-nav lb-prev" aria-label="Previous" data-lb-prev>&larr;</button>
+    <img class="lb-img" src="" alt="Expanded slide">
+    <button class="lb-nav lb-next" aria-label="Next" data-lb-next>&rarr;</button>
+    <figcaption class="lb-cap"><span data-lb-count>1/8</span></figcaption>
+  </figure>
+</div>  
 </body>
 </html>
 
