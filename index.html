@@ -61,10 +61,12 @@ He has experience in networking and system administration, including configuring
         <li class="slide" aria-label="Slide 7 of 8"><img src="./7.jpg" alt="Project slide 7" loading="lazy" decoding="async" fetchpriority="low"></li>
         <li class="slide" aria-label="Slide 8 of 8"><img src="./8.jpg" alt="Project slide 8" loading="lazy" decoding="async" fetchpriority="low"></li>
       </ul>
-    <div style="margin-top:.5rem; display:flex; gap:.5rem; align-items:center">
-  <button class="nav prev" aria-label="Previous slide" data-carousel-back></button>
-  <button class="nav next" aria-label="Next slide" data-carousel-next-btn></button>
+ <div style="margin-top:.5rem; display:flex; gap:.5rem; align-items:center">
+  <button class="nav prev"  aria-label="Previous slide" data-carousel-back></button>
+  <button class="nav next"  aria-label="Next slide"     data-carousel-next-btn></button>
+  <a class="btn" href="./1.jpg" target="_blank" rel="noopener">Open first slide</a>
 </div>
+
 
 
 
@@ -260,6 +262,27 @@ const dots = dotsWrap ? Array.from(dotsWrap.children) : [];
   });
 })();
 </script>
+  <!-- ✅ Your lightbox script ends here -->
+  <script>
+  (function(){
+    // For each carousel on the page, wire its bottom arrows to the same handlers
+    document.querySelectorAll('[data-carousel]').forEach(root => {
+      const prevTop = root.querySelector('[data-carousel-prev]');
+      const nextTop = root.querySelector('[data-carousel-next]');
+
+      // Find the bottom controls in the same project card as this carousel
+      const card = root.closest('.project-card') || document;
+      const prevBottom = card.querySelector('[data-carousel-back]');
+      const nextBottom = card.querySelector('[data-carousel-next-btn]');
+
+      // Forward clicks to the real next/prev buttons so dots & state update correctly
+      prevBottom?.addEventListener('click', () => prevTop?.click());
+      nextBottom?.addEventListener('click', () => nextTop?.click());
+    });
+  })();
+  </script>
+</body>
+</html>
 </body>
 </html>
 
