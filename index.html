@@ -116,16 +116,20 @@ He has experience in networking and system administration, including configuring
       let isPointerDown = false, startX = 0, currentX = 0, startOffset = 0;
 
       // Build dots
-      slides.forEach((_, i) => {
-        const b = document.createElement("button");
-        b.type = "button";
-        b.setAttribute("role", "tab");
-        b.setAttribute("aria-label", "Go to slide " + (i + 1));
-        if (i === 0) b.setAttribute("aria-selected", "true");
-        b.addEventListener("click", () => goTo(i));
-        dotsWrap.appendChild(b);
-      });
-      const dots = Array.from(dotsWrap.children);
+    // Build dots
+if (dotsWrap) {
+  slides.forEach((_, i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.setAttribute("role", "tab");
+    b.setAttribute("aria-label", "Go to slide " + (i + 1));
+    if (i === 0) b.setAttribute("aria-selected", "true");
+    b.addEventListener("click", () => goTo(i));
+    dotsWrap.appendChild(b);
+  });
+}
+const dots = dotsWrap ? Array.from(dotsWrap.children) : [];
+
 
       function update() {
         const offset = -index * viewport.clientWidth;
