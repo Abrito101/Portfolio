@@ -202,7 +202,19 @@ const dots = dotsWrap ? Array.from(dotsWrap.children) : [];
     <figcaption class="lb-cap"><span data-lb-count>1/8</span></figcaption>
   </figure>
 </div>  
+<script>
+(function(){
+  const root = document.querySelector('[data-carousel]');
+  if (!root) return;
+  const prevBtn = root.querySelector('[data-carousel-prev]');
+  const nextBtn = root.querySelector('[data-carousel-next]');
+  const backBtn = document.querySelector('[data-carousel-back]');
+  const nextBottomBtn = document.querySelector('[data-carousel-next-btn]');
 
+  backBtn?.addEventListener('click', ()=> prevBtn?.click());
+  nextBottomBtn?.addEventListener('click', ()=> nextBtn?.click());
+})();
+</script>
 <script>
 (function(){
   // Collect all slides in the first carousel (adjust selector if you add more carousels)
