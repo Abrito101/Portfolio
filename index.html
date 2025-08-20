@@ -6,13 +6,15 @@
   <title> Angel Vasquez — Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <!-- Font Awesome icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
   <header class="site-header">
     <nav class="nav">
       <h1 class="logo">Angel Vasquez</h1>
-       <p>Cybersecurity Student • Problem Solver • Lifelong Learner</p>  
+      <p>Cybersecurity Student • Problem Solver • Lifelong Learner</p>  
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
@@ -25,7 +27,7 @@
   <main>
     <section class="hero">
       <h2>Hello — I'm <strong>Angel Vasquez</strong></h2>
-<p class="tagline">Cybersecurity Student • Air National Guard • Passion for Defense & Innovation</p>
+      <p class="tagline">Cybersecurity Student • Air National Guard • Passion for Defense & Innovation</p>
       <a class="btn" href="#projects">View my work</a>
     </section>
 
@@ -37,69 +39,36 @@ He has experience in networking and system administration, including configuring
     </section>
 
     <section id="projects" class="container">
-  <h3>Projects</h3>
-  <div class="project-grid">
-  <!-- Slideshow -->
- <article class="project-card">
-  <h4>College Projects</h4>
-  <p>These are some of my favorite projects that I worked on in my university Associates Program at Mohawk Valley Community College.</p>
+      <h3>Projects</h3>
+      <div class="project-grid">
 
-  <!-- Slideshow -->
-  <div class="carousel" data-carousel aria-label="College Projects slideshow">
-    <button class="nav prev" aria-label="Previous slide" data-carousel-prev>&larr;</button>
+        <!-- College Projects with slideshow -->
+        <article class="project-card">
+          <h4>College Projects</h4>
+          <p>These are some of my favorite projects that I worked on in my university Associates Program at Mohawk Valley Community College.</p>
 
-    <div class="viewport" data-carousel-viewport>
-    <ul class="track" data-carousel-track>
-  <li class="slide" aria-label="Slide 1 of 8">
-    <img src="./1.jpg" alt="Project slide 1" loading="lazy" decoding="async" fetchpriority="low">
-  </li>
-  <li class="slide" aria-label="Slide 2 of 8">
-    <img src="./2.jpg" alt="Project slide 2" loading="lazy" decoding="async" fetchpriority="low">
-  </li>
-  <li class="slide" aria-label="Slide 3 of 8">
-    <img src="./3.jpg" alt="Project slide 3" loading="lazy" decoding="async" fetchpriority="low">
-  </li>
-  <li class="slide" aria-label="Slide 4 of 8">
-    <img src="./4.jpg" alt="Project slide 4" loading="lazy" decoding="async" fetchpriority="low">
-  </li>
-  <li class="slide" aria-label="Slide 5 of 8">
-    <img src="./5.jpg" alt="Project slide 5" loading="lazy" decoding="async" fetchpriority="low">
-  </li>
-  <li class="slide" aria-label="Slide 6 of 8">
-    <img src="./6.jpg" alt="Project slide 6" loading="lazy" decoding="async" fetchpriority="low">
-  </li>
-  <li class="slide" aria-label="Slide 7 of 8">
-    <img src="./7.jpg" alt="Project slide 7" loading="lazy" decoding="async" fetchpriority="low">
-  </li>
-  <li class="slide" aria-label="Slide 8 of 8">
-    <img src="./8.jpg" alt="Project slide 8" loading="lazy" decoding="async" fetchpriority="low">
-  </li>
-</ul>
+          <div class="carousel" data-carousel aria-label="College Projects slideshow">
+            <button class="nav prev" aria-label="Previous slide" data-carousel-prev>&larr;</button>
+            <div class="viewport" data-carousel-viewport>
+              <ul class="track" data-carousel-track>
+                <li class="slide" aria-label="Slide 1 of 8"><img src="./1.jpg" alt="Project slide 1" loading="lazy" decoding="async" fetchpriority="low"></li>
+                <li class="slide" aria-label="Slide 2 of 8"><img src="./2.jpg" alt="Project slide 2" loading="lazy" decoding="async" fetchpriority="low"></li>
+                <li class="slide" aria-label="Slide 3 of 8"><img src="./3.jpg" alt="Project slide 3" loading="lazy" decoding="async" fetchpriority="low"></li>
+                <li class="slide" aria-label="Slide 4 of 8"><img src="./4.jpg" alt="Project slide 4" loading="lazy" decoding="async" fetchpriority="low"></li>
+                <li class="slide" aria-label="Slide 5 of 8"><img src="./5.jpg" alt="Project slide 5" loading="lazy" decoding="async" fetchpriority="low"></li>
+                <li class="slide" aria-label="Slide 6 of 8"><img src="./6.jpg" alt="Project slide 6" loading="lazy" decoding="async" fetchpriority="low"></li>
+                <li class="slide" aria-label="Slide 7 of 8"><img src="./7.jpg" alt="Project slide 7" loading="lazy" decoding="async" fetchpriority="low"></li>
+                <li class="slide" aria-label="Slide 8 of 8"><img src="./8.jpg" alt="Project slide 8" loading="lazy" decoding="async" fetchpriority="low"></li>
+              </ul>
+            </div>
+            <button class="nav next" aria-label="Next slide" data-carousel-next>&rarr;</button>
+            <div class="dots" role="tablist" aria-label="Slide navigation" data-carousel-dots></div>
+          </div>
 
-        <!-- Uses images already in your repo root -->
-       <li class="slide" aria-label="Slide 1 of 8">
-  <img 
-    src="./1.jpg" 
-    alt="Project slide 1"
-    loading="lazy"
-    decoding="async"
-    fetchpriority="low"
-  >
-</li>
-
-      </ul>
-    </div>
-
-    <button class="nav next" aria-label="Next slide" data-carousel-next>&rarr;</button>
-    <div class="dots" role="tablist" aria-label="Slide navigation" data-carousel-dots></div>
-  </div>
-
-  <p style="margin-top:.75rem;">
-    <a class="btn" href="./1.jpg" target="_blank" rel="noopener">Open first slide</a>
-  </p>
-</article>
-
-
+          <p style="margin-top:.75rem;">
+            <a class="btn" href="./1.jpg" target="_blank" rel="noopener">Open first slide</a>
+          </p>
+        </article>
 
         <article class="project-card">
           <h4>Project Two</h4>
@@ -110,127 +79,109 @@ He has experience in networking and system administration, including configuring
     </section>
 
     <section id="resume" class="container">
-  <h3>Resume</h3>
-  <iframe 
-    src="Resume.pdf" 
-    width="100%" 
-    height="800px" 
-    style="border:1px solid #ccc;">
-  </iframe>
-</section>
+      <h3>Resume</h3>
+      <iframe src="Resume.pdf" width="100%" height="800px" style="border:1px solid #ccc;"></iframe>
+    </section>
 
-
-    <!-- Add this in your <head> section -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-<section id="contact" class="container">
-  <h3>Contact</h3>
-  <p>
-    <i class="fas fa-envelope"></i>
-    <a href="mailto:angeld.3840@gmail.com">angeld.3840@gmail.com</a>
-  </p>
-  <p>
-    <i class="fab fa-github"></i>
-    <a href="https://github.com/Abrito101" target="_blank" rel="noopener">github.com/Abrito101</a>
-  </p>
-  <p>
-    <i class="fab fa-linkedin"></i>
-    <a href="https://www.linkedin.com/in/angel-vasquez-b470ab225/" target="_blank" rel="noopener">
-      linkedin.com/in/angel-vasquez-b470ab225
-    </a>
-  </p>
-</section>
-
+    <section id="contact" class="container">
+      <h3>Contact</h3>
+      <p><i class="fas fa-envelope"></i>
+        <a href="mailto:angeld.3840@gmail.com">angeld.3840@gmail.com</a>
+      </p>
+      <p><i class="fab fa-github"></i>
+        <a href="https://github.com/Abrito101" target="_blank" rel="noopener">github.com/Abrito101</a>
+      </p>
+      <p><i class="fab fa-linkedin"></i>
+        <a href="https://www.linkedin.com/in/angel-vasquez-b470ab225/" target="_blank" rel="noopener">linkedin.com/in/angel-vasquez-b470ab225</a>
+      </p>
+    </section>
   </main>
 
   <footer class="site-footer">
     <p>© 2025 Angel Vasquez </p>
   </footer>
-    <script>
-(function () {
-  function setupCarousel(root) {
-    const track = root.querySelector("[data-carousel-track]");
-    const viewport = root.querySelector("[data-carousel-viewport]") || root.querySelector(".viewport");
-    const slides = Array.from(track.children);
-    const prevBtn = root.querySelector("[data-carousel-prev]");
-    const nextBtn = root.querySelector("[data-carousel-next]");
-    const dotsWrap = root.querySelector("[data-carousel-dots]");
 
-    let index = 0;
-    let isPointerDown = false, startX = 0, currentX = 0, startOffset = 0;
+  <!-- ✅ Carousel script moved here -->
+  <script>
+  (function () {
+    function setupCarousel(root) {
+      const track = root.querySelector("[data-carousel-track]");
+      const viewport = root.querySelector("[data-carousel-viewport]") || root.querySelector(".viewport");
+      const slides = Array.from(track.children);
+      const prevBtn = root.querySelector("[data-carousel-prev]");
+      const nextBtn = root.querySelector("[data-carousel-next]");
+      const dotsWrap = root.querySelector("[data-carousel-dots]");
 
-    // Build dots
-    slides.forEach((_, i) => {
-      const b = document.createElement("button");
-      b.type = "button";
-      b.setAttribute("role", "tab");
-      b.setAttribute("aria-label", "Go to slide " + (i + 1));
-      if (i === 0) b.setAttribute("aria-selected", "true");
-      b.addEventListener("click", () => goTo(i));
-      dotsWrap.appendChild(b);
-    });
-    const dots = Array.from(dotsWrap.children);
+      let index = 0;
+      let isPointerDown = false, startX = 0, currentX = 0, startOffset = 0;
 
-    function update() {
-      const offset = -index * viewport.clientWidth;
-      track.style.transform = `translateX(${offset}px)`;
-      dots.forEach((d, i) => d.setAttribute("aria-selected", i === index ? "true" : "false"));
+      // Build dots
+      slides.forEach((_, i) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.setAttribute("role", "tab");
+        b.setAttribute("aria-label", "Go to slide " + (i + 1));
+        if (i === 0) b.setAttribute("aria-selected", "true");
+        b.addEventListener("click", () => goTo(i));
+        dotsWrap.appendChild(b);
+      });
+      const dots = Array.from(dotsWrap.children);
+
+      function update() {
+        const offset = -index * viewport.clientWidth;
+        track.style.transform = `translateX(${offset}px)`;
+        dots.forEach((d, i) => d.setAttribute("aria-selected", i === index ? "true" : "false"));
+      }
+      function goTo(i) { index = Math.max(0, Math.min(i, slides.length - 1)); update(); }
+      function next() { goTo(index + 1); }
+      function prev() { goTo(index - 1); }
+
+      nextBtn.addEventListener("click", next);
+      prevBtn.addEventListener("click", prev);
+
+      root.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight") { e.preventDefault(); next(); }
+        if (e.key === "ArrowLeft")  { e.preventDefault(); prev(); }
+      });
+
+      window.addEventListener("resize", update);
+
+      const threshold = () => viewport.clientWidth * 0.18;
+      viewport.addEventListener("pointerdown", (e) => {
+        isPointerDown = true;
+        startX = e.clientX;
+        currentX = e.clientX;
+        startOffset = -index * viewport.clientWidth;
+        track.style.transition = "none";
+        viewport.setPointerCapture(e.pointerId);
+      });
+
+      viewport.addEventListener("pointermove", (e) => {
+        if (!isPointerDown) return;
+        currentX = e.clientX;
+        const dx = currentX - startX;
+        track.style.transform = `translateX(${startOffset + dx}px)`;
+      });
+
+      function endPointer(e) {
+        if (!isPointerDown) return;
+        isPointerDown = false;
+        track.style.transition = "";
+        const dx = currentX - startX;
+        if (dx < -threshold()) next();
+        else if (dx > threshold()) prev();
+        else update();
+        viewport.releasePointerCapture?.(e.pointerId);
+      }
+      viewport.addEventListener("pointerup", endPointer);
+      viewport.addEventListener("pointercancel", endPointer);
+      viewport.addEventListener("pointerleave", endPointer);
+
+      update();
     }
-    function goTo(i) { index = Math.max(0, Math.min(i, slides.length - 1)); update(); }
-    function next() { goTo(index + 1); }
-    function prev() { goTo(index - 1); }
-
-    // Buttons
-    nextBtn.addEventListener("click", next);
-    prevBtn.addEventListener("click", prev);
-
-    // Keyboard nav
-    root.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowRight") { e.preventDefault(); next(); }
-      if (e.key === "ArrowLeft")  { e.preventDefault(); prev(); }
-    });
-
-    // Resize
-    window.addEventListener("resize", update);
-
-    // Drag / swipe
-    const threshold = () => viewport.clientWidth * 0.18;
-    viewport.addEventListener("pointerdown", (e) => {
-      isPointerDown = true;
-      startX = e.clientX;
-      currentX = e.clientX;
-      startOffset = -index * viewport.clientWidth;
-      track.style.transition = "none";
-      viewport.setPointerCapture(e.pointerId);
-    });
-
-    viewport.addEventListener("pointermove", (e) => {
-      if (!isPointerDown) return;
-      currentX = e.clientX;
-      const dx = currentX - startX;
-      track.style.transform = `translateX(${startOffset + dx}px)`;
-    });
-
-    function endPointer(e) {
-      if (!isPointerDown) return;
-      isPointerDown = false;
-      track.style.transition = "";
-      const dx = currentX - startX;
-      if (dx < -threshold()) next();
-      else if (dx > threshold()) prev();
-      else update();
-      viewport.releasePointerCapture?.(e.pointerId);
-    }
-    viewport.addEventListener("pointerup", endPointer);
-    viewport.addEventListener("pointercancel", endPointer);
-    viewport.addEventListener("pointerleave", endPointer);
-
-    // Init
-    update();
-  }
-
-  document.querySelectorAll("[data-carousel]").forEach(setupCarousel);
-})();
-    </script>
-  </body>
+    document.querySelectorAll("[data-carousel]").forEach(setupCarousel);
+  })();
+  </script>
+</body>
 </html>
+
