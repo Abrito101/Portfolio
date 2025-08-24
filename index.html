@@ -60,17 +60,9 @@
             <button class="nav prev" aria-label="Previous slide" data-carousel-prev></button>
 
             <div class="viewport" data-carousel-viewport>
-              <ul class="track" data-carousel-track>
-                <!-- Slides (images only; expand control is added in JS) -->
-                <li class="slide"><img src="./1.jpg" alt="Project slide 1"></li>
-                <li class="slide"><img src="./2.jpg" alt="Project slide 2"></li>
-                <li class="slide"><img src="./3.jpg" alt="Project slide 3"></li>
-                <li class="slide"><img src="./4.jpg" alt="Project slide 4"></li>
-                <li class="slide"><img src="./5.jpg" alt="Project slide 5"></li>
-                <li class="slide"><img src="./6.jpg" alt="Project slide 6"></li>
-                <li class="slide"><img src="./7.jpg" alt="Project slide 7"></li>
-                <li class="slide"><img src="./8.jpg" alt="Project slide 8"></li>
-              </ul>
+                <ul class="track" data-carousel-track>
+                  <!-- Slides are injected via JavaScript -->
+                </ul>
             </div>
 
             <!-- right arrow -->
@@ -110,6 +102,18 @@
   <!-- ===== Carousel + Lightbox Script (single unified script) ===== -->
   <script>
   (function () {
+    const slideImgs = Array.from({ length: 8 }, (_, i) => `./${i + 1}.jpg`);
+    const track = document.querySelector('[data-carousel-track]');
+    slideImgs.forEach((src, i) => {
+      const li = document.createElement('li');
+      li.className = 'slide';
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = `Project slide ${i + 1}`;
+      li.appendChild(img);
+      track.appendChild(li);
+    });
+
     /** UTIL **/
     function el(tag, attrs = {}, html = "") {
       const n = document.createElement(tag);
