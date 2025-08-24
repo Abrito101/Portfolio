@@ -1,285 +1,124 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Angel Vasquez — Portfolio</title>
-
-  <!-- Fonts & site CSS -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-  <header class="site-header">
-    <nav class="nav">
-      <h1 class="logo">Angel Vasquez</h1>
-      <p>Cybersecurity Student • Problem Solver • Lifelong Learner</p>
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#resume">Resume</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="./blog.html">Blog</a></li>      
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero">
-      <h2>Hello — I'm <strong>Angel Vasquez</strong></h2>
-      <p class="tagline">Cybersecurity Student • Air National Guard • Passion for Defense & Innovation</p>
-      <a class="btn" href="#projects">View my work</a>
-    </section>
-
-    <section id="about" class="container">
-      <h3>About</h3>
-      <p>
-        Angel Vasquez is a dedicated cybersecurity and IT professional with a strong passion for continuous learning.
-        He holds an Associate degree in Cybersecurity and serves in the Air National Guard, specializing in Cyber Defense Operations.
-        Angel is actively expanding his technical expertise through hands-on projects, including the development of a personal home lab.
-      </p>
-      <p>
-        He has experience in networking and system administration, including configuring VLANs, managing Active Directory in both Linux and Windows environments,
-        and creating user accounts. His cybersecurity experience includes deploying and configuring SNORT IDS, building honeypots, and analyzing malware such as Zeus.
-        Angel has also sharpened his offensive security skills through TryHackMe capture-the-flag challenges using Kali Linux.
-      </p>
-    </section>
-
-    <section id="projects" class="container">
-      <h3>Projects</h3>
-      <div class="project-grid">
-        <!-- College Projects -->
-        <article class="project-card">
-          <h4>College Projects</h4>
-          <p>These are some of my favorite projects that I worked on in my university Associates Program at Mohawk Valley Community College.</p>
-
-          <!-- Carousel -->
-          <div class="carousel" data-carousel tabindex="0" aria-label="College Projects slideshow">
-            <!-- left arrow -->
-            <button class="nav prev" aria-label="Previous slide" data-carousel-prev></button>
-
-            <div class="viewport" data-carousel-viewport>
-              <ul class="track" data-carousel-track>
-                <!-- Slides (images only; expand control is added in JS) -->
-                <li class="slide"><img src="./1.jpg" alt="Project slide 1"></li>
-                <li class="slide"><img src="./2.jpg" alt="Project slide 2"></li>
-                <li class="slide"><img src="./3.jpg" alt="Project slide 3"></li>
-                <li class="slide"><img src="./4.jpg" alt="Project slide 4"></li>
-                <li class="slide"><img src="./5.jpg" alt="Project slide 5"></li>
-                <li class="slide"><img src="./6.jpg" alt="Project slide 6"></li>
-                <li class="slide"><img src="./7.jpg" alt="Project slide 7"></li>
-                <li class="slide"><img src="./8.jpg" alt="Project slide 8"></li>
-              </ul>
-            </div>
-
-            <!-- right arrow -->
-            <button class="nav next" aria-label="Next slide" data-carousel-next></button>
-
-            <!-- dots -->
-            <div class="dots" role="tablist" aria-label="Slide navigation" data-carousel-dots></div>
-          </div>
-        </article>
-
-        <!-- Example second card -->
-        <article class="project-card">
-          <h4>Project Two</h4>
-          <p>Short description. Tech used: Python, Flask.</p>
-          <a class="btn" href="#" target="_blank" rel="noopener">View project</a>
-        </article>
-      </div>
-    </section>
-
-    <section id="resume" class="container">
-      <h3>Resume</h3>
-      <iframe src="Resume.pdf" width="100%" height="800" style="border:1px solid #ccc;"></iframe>
-    </section>
-
-    <section id="contact" class="container">
-      <h3>Contact</h3>
-      <p><strong>Email:</strong> <a href="mailto:angeld.3840@gmail.com">angeld.3840@gmail.com</a></p>
-      <p><strong>GitHub:</strong> <a href="https://github.com/Abrito101" target="_blank" rel="noopener">github.com/Abrito101</a></p>
-      <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/angel-vasquez-b470ab225/" target="_blank" rel="noopener">linkedin.com/in/angel-vasquez-b470ab225</a></p>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <p>© 2025 Angel Vasquez</p>
-  </footer>
-
-  <!-- ===== Carousel + Lightbox Script (single unified script) ===== -->
-  <script>
-  (function () {
-    /** UTIL **/
-    function el(tag, attrs = {}, html = "") {
-      const n = document.createElement(tag);
-      Object.entries(attrs).forEach(([k, v]) => {
-        if (k === "class") n.className = v;
-        else if (k.startsWith("on") && typeof v === "function") n.addEventListener(k.slice(2), v);
-        else n.setAttribute(k, v);
-      });
-      if (html) n.innerHTML = html;
-      return n;
-    }
-
-    /** LIGHTBOX (single instance) **/
-    const lightbox = el("div", { id: "lightbox", hidden: "" });
-    lightbox.innerHTML = `
-      <div class="lb-overlay" data-lb-close></div>
-      <figure class="lb-content" role="dialog" aria-modal="true" aria-label="Slide">
-        <button class="lb-close" aria-label="Close" data-lb-close>&times;</button>
-        <button class="lb-nav lb-prev" aria-label="Previous" data-lb-prev>&larr;</button>
-        <img class="lb-img" src="" alt="Expanded slide">
-        <button class="lb-nav lb-next" aria-label="Next" data-lb-next>&rarr;</button>
-        <figcaption class="lb-cap"><span data-lb-count>1/1</span></figcaption>
-      </figure>`;
-    document.body.appendChild(lightbox);
-
-    const lbImg   = lightbox.querySelector(".lb-img");
-    const lbCount = lightbox.querySelector("[data-lb-count]");
-    const lbPrev  = lightbox.querySelector("[data-lb-prev]");
-    const lbNext  = lightbox.querySelector("[data-lb-next]");
-    const lbCloseBtns = lightbox.querySelectorAll("[data-lb-close]");
-
-    let lbList = []; // list of images for the current carousel
-    let lbIndex = 0;
-
-    function lbRender() {
-      if (!lbList.length) return;
-      lbImg.src = lbList[lbIndex].src;
-      lbImg.alt = lbList[lbIndex].alt || "Expanded slide";
-      lbCount.textContent = (lbIndex + 1) + "/" + lbList.length;
-    }
-    function lbOpen(images, startIndex) {
-      lbList = images;
-      lbIndex = Math.max(0, Math.min(startIndex, lbList.length - 1));
-      lightbox.removeAttribute("hidden");
-      lightbox.setAttribute("aria-hidden", "false");
-      lbRender();
-    }
-    function lbClose() {
-      lightbox.setAttribute("aria-hidden", "true");
-      lightbox.setAttribute("hidden", "");
-    }
-    function lbPrevFn(){ lbIndex = (lbIndex - 1 + lbList.length) % lbList.length; lbRender(); }
-    function lbNextFn(){ lbIndex = (lbIndex + 1) % lbList.length; lbRender(); }
-
-    lbPrev.addEventListener("click", lbPrevFn);
-    lbNext.addEventListener("click", lbNextFn);
-    lbCloseBtns.forEach(b => b.addEventListener("click", lbClose));
-    lightbox.addEventListener("click", (e) => {
-      if (e.target.matches(".lb-overlay,[data-lb-close]")) lbClose();
-    });
-    window.addEventListener("keydown", (e) => {
-      if (lightbox.hasAttribute("hidden")) return;
-      if (e.key === "Escape") lbClose();
-      if (e.key === "ArrowLeft") lbPrevFn();
-      if (e.key === "ArrowRight") lbNextFn();
-    });
-
-    /** CAROUSEL **/
-    document.querySelectorAll("[data-carousel]").forEach((root) => {
-      const track    = root.querySelector("[data-carousel-track]");
-      const viewport = root.querySelector("[data-carousel-viewport]") || root.querySelector(".viewport");
-      const prevBtn  = root.querySelector("[data-carousel-prev]");
-      const nextBtn  = root.querySelector("[data-carousel-next]");
-      const dotsWrap = root.querySelector("[data-carousel-dots]");
-
-      const slides = Array.from(track.querySelectorAll(".slide"));
-      const imgs   = slides.map(s => s.querySelector("img"));
-
-      // Add eye icon overlay button to each slide
-      slides.forEach((slide, i) => {
-        const eyeBtn = el(
-          "button",
-          { class: "expand", "aria-label": "Expand slide " + (i + 1), "data-expand": String(i) },
-          // Inline SVG ensures perfect centering/availability (no external icon font needed)
-          `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false" style="display:block">
-             <path fill="currentColor" d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12a5 5 0 110-10 5 5 0 010 10zm0-2.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/>
-           </svg>`
-        );
-        eyeBtn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          lbOpen(imgs, i);
-        });
-        slide.appendChild(eyeBtn);
-
-        // Clicking the image also opens lightbox
-        imgs[i].addEventListener("click", () => lbOpen(imgs, i));
-        // Performance attrs
-        imgs[i].setAttribute("loading", "lazy");
-        imgs[i].setAttribute("decoding", "async");
-        imgs[i].setAttribute("fetchpriority", "low");
-      });
-
-      // Dots
-      let dots = [];
-      if (dotsWrap) {
-        slides.forEach((_, i) => {
-          const b = el("button", { type: "button", role: "tab", "aria-label": "Go to slide " + (i + 1) });
-          if (i === 0) b.setAttribute("aria-selected", "true");
-          b.addEventListener("click", () => goTo(i));
-          dotsWrap.appendChild(b);
-        });
-        dots = Array.from(dotsWrap.children);
-      }
-
-      // State
-      let index = 0;
-      function update() {
-        const offset = -index * viewport.clientWidth;
-        track.style.transform = `translateX(${offset}px)`;
-        dots.forEach((d, i) => d.setAttribute("aria-selected", i === index ? "true" : "false"));
-      }
-      function goTo(i) { index = Math.max(0, Math.min(i, slides.length - 1)); update(); }
-      function next()  { goTo(index + 1); }
-      function prev()  { goTo(index - 1); }
-
-      // Buttons/keys
-      nextBtn.addEventListener("click", next);
-      prevBtn.addEventListener("click", prev);
-      root.addEventListener("keydown", (e) => {
-        if (e.key === "ArrowRight") { e.preventDefault(); next(); }
-        if (e.key === "ArrowLeft")  { e.preventDefault(); prev(); }
-      });
-
-      // Drag / swipe
-      let isDown = false, startX = 0, curX = 0, startOffset = 0;
-      const threshold = () => viewport.clientWidth * 0.18;
-
-      viewport.addEventListener("pointerdown", (e) => {
-        isDown = true;
-        startX = curX = e.clientX;
-        startOffset = -index * viewport.clientWidth;
-        track.style.transition = "none";
-        viewport.setPointerCapture(e.pointerId);
-      });
-      viewport.addEventListener("pointermove", (e) => {
-        if (!isDown) return;
-        curX = e.clientX;
-        const dx = curX - startX;
-        track.style.transform = `translateX(${startOffset + dx}px)`;
-      });
-      function endPointer(e) {
-        if (!isDown) return;
-        isDown = false;
-        track.style.transition = "";
-        const dx = curX - startX;
-        if (dx < -threshold()) next();
-        else if (dx > threshold()) prev();
-        else update();
-        viewport.releasePointerCapture?.(e.pointerId);
-      }
-      viewport.addEventListener("pointerup", endPointer);
-      viewport.addEventListener("pointercancel", endPointer);
-      viewport.addEventListener("pointerleave", endPointer);
-
-      window.addEventListener("resize", update);
-
-      // Init
-      update();
-    });
-  })();
-  </script>
-</body>
-</html>
+ (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
+diff --git a/index.html b/index.html
+index 099d30838d1717f5451afab601e71041b3bee3c1..304327bd8421d102a4a459119f73f975563cf385 100644
+--- a/index.html
++++ b/index.html
+@@ -38,100 +38,104 @@
+         Angel Vasquez is a dedicated cybersecurity and IT professional with a strong passion for continuous learning.
+         He holds an Associate degree in Cybersecurity and serves in the Air National Guard, specializing in Cyber Defense Operations.
+         Angel is actively expanding his technical expertise through hands-on projects, including the development of a personal home lab.
+       </p>
+       <p>
+         He has experience in networking and system administration, including configuring VLANs, managing Active Directory in both Linux and Windows environments,
+         and creating user accounts. His cybersecurity experience includes deploying and configuring SNORT IDS, building honeypots, and analyzing malware such as Zeus.
+         Angel has also sharpened his offensive security skills through TryHackMe capture-the-flag challenges using Kali Linux.
+       </p>
+     </section>
+ 
+     <section id="projects" class="container">
+       <h3>Projects</h3>
+       <div class="project-grid">
+         <!-- College Projects -->
+         <article class="project-card">
+           <h4>College Projects</h4>
+           <p>These are some of my favorite projects that I worked on in my university Associates Program at Mohawk Valley Community College.</p>
+ 
+           <!-- Carousel -->
+           <div class="carousel" data-carousel tabindex="0" aria-label="College Projects slideshow">
+             <!-- left arrow -->
+             <button class="nav prev" aria-label="Previous slide" data-carousel-prev></button>
+ 
+             <div class="viewport" data-carousel-viewport>
+-              <ul class="track" data-carousel-track>
+-                <!-- Slides (images only; expand control is added in JS) -->
+-                <li class="slide"><img src="./1.jpg" alt="Project slide 1"></li>
+-                <li class="slide"><img src="./2.jpg" alt="Project slide 2"></li>
+-                <li class="slide"><img src="./3.jpg" alt="Project slide 3"></li>
+-                <li class="slide"><img src="./4.jpg" alt="Project slide 4"></li>
+-                <li class="slide"><img src="./5.jpg" alt="Project slide 5"></li>
+-                <li class="slide"><img src="./6.jpg" alt="Project slide 6"></li>
+-                <li class="slide"><img src="./7.jpg" alt="Project slide 7"></li>
+-                <li class="slide"><img src="./8.jpg" alt="Project slide 8"></li>
+-              </ul>
++                <ul class="track" data-carousel-track>
++                  <!-- Slides are injected via JavaScript -->
++                </ul>
+             </div>
+ 
+             <!-- right arrow -->
+             <button class="nav next" aria-label="Next slide" data-carousel-next></button>
+ 
+             <!-- dots -->
+             <div class="dots" role="tablist" aria-label="Slide navigation" data-carousel-dots></div>
+           </div>
+         </article>
+ 
+         <!-- Example second card -->
+         <article class="project-card">
+           <h4>Project Two</h4>
+           <p>Short description. Tech used: Python, Flask.</p>
+           <a class="btn" href="#" target="_blank" rel="noopener">View project</a>
+         </article>
+       </div>
+     </section>
+ 
+     <section id="resume" class="container">
+       <h3>Resume</h3>
+       <iframe src="Resume.pdf" width="100%" height="800" style="border:1px solid #ccc;"></iframe>
+     </section>
+ 
+     <section id="contact" class="container">
+       <h3>Contact</h3>
+       <p><strong>Email:</strong> <a href="mailto:angeld.3840@gmail.com">angeld.3840@gmail.com</a></p>
+       <p><strong>GitHub:</strong> <a href="https://github.com/Abrito101" target="_blank" rel="noopener">github.com/Abrito101</a></p>
+       <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/angel-vasquez-b470ab225/" target="_blank" rel="noopener">linkedin.com/in/angel-vasquez-b470ab225</a></p>
+     </section>
+   </main>
+ 
+   <footer class="site-footer">
+     <p>© 2025 Angel Vasquez</p>
+   </footer>
+ 
+   <!-- ===== Carousel + Lightbox Script (single unified script) ===== -->
+   <script>
+   (function () {
++    const slideImgs = Array.from({ length: 8 }, (_, i) => `./${i + 1}.jpg`);
++    const track = document.querySelector('[data-carousel-track]');
++    slideImgs.forEach((src, i) => {
++      const li = document.createElement('li');
++      li.className = 'slide';
++      const img = document.createElement('img');
++      img.src = src;
++      img.alt = `Project slide ${i + 1}`;
++      li.appendChild(img);
++      track.appendChild(li);
++    });
++
+     /** UTIL **/
+     function el(tag, attrs = {}, html = "") {
+       const n = document.createElement(tag);
+       Object.entries(attrs).forEach(([k, v]) => {
+         if (k === "class") n.className = v;
+         else if (k.startsWith("on") && typeof v === "function") n.addEventListener(k.slice(2), v);
+         else n.setAttribute(k, v);
+       });
+       if (html) n.innerHTML = html;
+       return n;
+     }
+ 
+     /** LIGHTBOX (single instance) **/
+     const lightbox = el("div", { id: "lightbox", hidden: "" });
+     lightbox.innerHTML = `
+       <div class="lb-overlay" data-lb-close></div>
+       <figure class="lb-content" role="dialog" aria-modal="true" aria-label="Slide">
+         <button class="lb-close" aria-label="Close" data-lb-close>&times;</button>
+         <button class="lb-nav lb-prev" aria-label="Previous" data-lb-prev>&larr;</button>
+         <img class="lb-img" src="" alt="Expanded slide">
+         <button class="lb-nav lb-next" aria-label="Next" data-lb-next>&rarr;</button>
+         <figcaption class="lb-cap"><span data-lb-count>1/1</span></figcaption>
+       </figure>`;
+     document.body.appendChild(lightbox);
+ 
+ 
+EOF
+)
