@@ -101,7 +101,8 @@
   </footer>
 
   <!-- ===== Carousel + Lightbox Script (single unified script) ===== -->
-  <script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
   (function () {
     const slideImgs = Array.from({ length: 8 }, (_, i) => `./${i + 1}.jpg`);
     const track = document.querySelector('[data-carousel-track]');
@@ -285,7 +286,6 @@
       update();
     });
   })();
-  </script>
-</body>
-</html>
+});
+</script>
 
