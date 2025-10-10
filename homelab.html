@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Home Lab — Angel Vasquez</title>
+
+  <!-- Reuse your existing styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Minimal MD renderer (marked) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <style>
+    .lab-wrapper { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
+    .lab-grid { display: grid; gap: 1.25rem; }
+    .lab-card { background: var(--card, #121318); border: 1px solid var(--border, rgba(255,255,255,.08)); border-radius: 16px; padding: 1rem; }
+    .lab-card h2 { margin-top: 0 }
+    .toc { display:flex; flex-wrap:wrap; gap:.5rem; margin:.5rem 0 1rem }
+    .toc a { padding:.35rem .6rem; border:1px solid var(--border, rgba(255,255,255,.08)); border-radius:999px; text-decoration:none }
+    .lab-card img { max-width: 100%; height: auto; border-radius: 8px; }
+    pre { overflow:auto; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <div>
+        <h1 class="logo">Angel Vasquez</h1>
+        <p>Cybersecurity Student • Problem Solver • Lifelong Learner</p>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#resume">Resume</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a aria-current="page" href="homelab.html">Home Lab</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="lab-wrapper">
+    <h1>Home Lab</h1>
+    <p class="tagline">Notes and configs from my networking, VLAN, VPN, and router builds.</p>
+
+    <div class="lab-card">
+      <strong>On this page</strong>
+      <div id="toc" class="toc"></div>
+    </div>
+
+    <div id="content" class="lab-grid"></div>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2025 Angel Vasquez</p>
+  </footer>
+
+  <script>
+    // Files to render (title, path, anchor id)
+    const SECTIONS = [
+      { title: "The Home Lab (Overview)", file: "notes/the-home-lab.md", id: "overview" },
+      { title: "GMK Tech Mini PC (Router)", file: "notes/gmk-tech-mini-pc-router.md", id: "gmk" },
+      { title: "Hitron Cable Modem", file: "notes/hitron-cable-modem.md", id: "modem" },
+      { title: "My Main Desktop", file: "notes/my-main-desktop.md", id: "desktop" },
+    ];
+
+    // Convert Obsidian wiki-links & image embeds to standard Markdown before marked renders it
+    function preprocessObsidian(md) {
+      // Convert image embeds: ![[image.png]] -> ![](notes/assets/image.png)
+      md = md.replace(/!\[\[([^|\]]+)(?:\|[^]]*)?\]\]/g, (m, file) => `![](notes/assets/${file.trim()})`);
+
+      // Convert internal links: [[Title]] or [[Title|Text]] -> anchor links within this page if we can map
+      md = md.replace(/\[\[([^|\]]+)(?:\|([^]]+))?\]\]/g, (m, target, text) => {
+        const t = target.trim().toLowerCase();
+        const map = {
+          "the home lab": "#overview",
+          "gmk tech mini pc (router)": "#gmk",
+          "hitron cable modem": "#modem",
+          "my main desktop": "#desktop"
+        };
+        const href = map[t] || "#"; // fallback
+        return `[${text || target}](${href})`;
+      });
+
+      return md;
+    }
+
+    async function render() {
+      const content = document.getElementById("content");
+      const toc = document.getElementById("toc");
+
+      // Build TOC
+      toc.innerHTML = SECTIONS.map(s => `<a href="#${s.id}">${s.title}</a>`).join("");
+
+      // Fetch + render each section
+      for (const s of SECTIONS) {
+        try {
+          const res = await fetch(s.file);
+          if (!res.ok) throw new Error(s.file + " not found");
+          let md = await res.text();
+          md = preprocessObsidian(md);
+          const html = marked.parse(md);
+
+          const card = document.createElement("section");
+          card.className = "lab-card";
+          card.id = s.id;
+          card.innerHTML = `<h2>${s.title}</h2>${html}`;
+          content.appendChild(card);
+        } catch (e) {
+          const card = document.createElement("section");
+          card.className = "lab-card";
+          card.id = s.id;
+          card.innerHTML = `<h2>${s.title}</h2><p>Could not load <code>${s.file}</code>. Make sure it’s committed to your repo.</p>`;
+          content.appendChild(card);
+        }
+      }
+    }
+    render();
+  </script>
+</body>
+</html>
