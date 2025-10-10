@@ -5,14 +5,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Home Lab — Angel Vasquez</title>
 
-  <!-- Reuse your site styles -->
   <link rel="stylesheet" href="style.css" />
-
-  <!-- Minimal Markdown renderer -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <style>
-    /* Page-specific light styling that fits your theme */
     .lab-wrapper { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
     .lab-grid { display: grid; gap: 1.1rem; }
     .lab-card {
@@ -34,7 +30,6 @@
   </style>
 </head>
 <body>
-  <!-- Header reused from your site -->
   <header class="site-header">
     <nav class="nav container">
       <div>
@@ -69,7 +64,6 @@
   </footer>
 
   <script>
-    // ==== Configure your sections (exact file names in notes/homelab/) ====
     const BASE = "notes/homelab/";
     const SECTIONS = [
       { id: "overview", title: "The Home Lab (Overview)", file: "The Home Lab.md" },
@@ -78,42 +72,85 @@
       { id: "desktop",  title: "My Main Desktop",           file: "My main desktop.md" },
     ];
 
-    // Build a lookup so Obsidian [[links]] to note titles can jump to the right section
     const titleToAnchor = Object.fromEntries(
       SECTIONS.map(s => [s.title.toLowerCase().replace(/\s+/g,' ').trim(), `#${s.id}`])
     );
 
-    // Encode a *single path segment* (preserves slashes, encodes spaces, parentheses, etc.)
     const joinEncoded = (base, segment) => base + encodeURIComponent(segment).replace(/%2F/gi,'/');
 
-    // Convert Obsidian syntax to web-friendly Markdown
     function preprocessObsidian(md) {
-      // 1) Image embeds: ![[file.png]] or ![[folder/file.png|alt]]
-      // -> ![](notes/homelab/assets/file.png)
       md = md.replace(/!\[\[([^|\]]+)(?:\|([^]]*))?\]\]/g, (_m, file, alt) => {
         const clean = String(file).trim();
         const url = joinEncoded(BASE + "assets/", clean);
         return `![${alt ? alt.trim() : ""}](${url})`;
       });
-
-      // 2) Internal links: [[Title]] or [[Title|Text]] -> anchor if we have a matching section
       md = md.replace(/\[\[([^|\]]+)(?:\|([^]]+))?\]\]/g, (_m, target, text) => {
         const t = String(target).trim().toLowerCase().replace(/\s+/g,' ');
         const href = titleToAnchor[t] || '#';
         return `[${(text || target).trim()}](${href})`;
       });
-
       return md;
+    }
+
+    // 🔧 NEW: Smart image resolver that auto-fixes missing paths/extensions
+    function attachImageFallbacks(root, BASE) {
+      root.querySelectorAll('img').forEach(img => {
+        const original = img.getAttribute('src');
+        if (!original) return;
+
+        const url = new URL(original, location.href);
+        const path = url.pathname;
+        const file = path.split('/').pop() || "";
+        const dir  = path.slice(0, path.lastIndexOf('/') + 1);
+
+        const name = file.replace(/\.[^.]+$/, '');
+        const ext  = (file.match(/\.[^.]+$/) || [''])[0];
+
+        const baseAssets = BASE + "assets/";
+        const baseRoot   = BASE;
+
+        const nameVariants = Array.from(new Set([
+          name,
+          name.replace(/ /g, '%20'),
+          name.replace(/ /g, '_'),
+          name.replace(/[()]/g, ''),
+          name.toLowerCase(),
+          name.replace(/ /g, '_').toLowerCase(),
+        ]));
+
+        const extVariants = Array.from(new Set([
+          ext || '.png', '.png', '.jpg', '.jpeg', '.webp'
+        ]));
+
+        const bases = [dir, baseAssets, baseRoot];
+
+        const candidates = [];
+        for (const base of bases) {
+          for (const n of nameVariants) {
+            for (const e of extVariants) {
+              const cand = base + n + e;
+              if (!candidates.includes(cand)) candidates.push(cand);
+            }
+          }
+        }
+
+        let i = 0;
+        img.addEventListener('error', function handler () {
+          if (i >= candidates.length) {
+            img.removeEventListener('error', handler);
+            return;
+          }
+          img.src = candidates[i++];
+        });
+      });
     }
 
     async function render() {
       const content = document.getElementById("content");
       const toc = document.getElementById("toc");
 
-      // Build TOC
       toc.innerHTML = SECTIONS.map(s => `<a href="#${s.id}">${s.title}</a>`).join("");
 
-      // Fetch + render each section
       for (const s of SECTIONS) {
         const card = document.createElement("section");
         card.className = "lab-card";
@@ -125,14 +162,13 @@
           let md = await res.text();
           md = preprocessObsidian(md);
 
-          // Render with marked
           const html = marked.parse(md);
           card.innerHTML = `<h2>${s.title}</h2>${html}`;
+
+          // Apply the smart image resolver here ✅
+          attachImageFallbacks(card, BASE);
         } catch (e) {
-          card.innerHTML = `
-            <h2>${s.title}</h2>
-            <p class="muted">Could not load <code>${BASE}${s.file}</code> (${e.message}).<br>
-            Make sure the file exists in your repo and the name & casing match exactly.</p>`;
+          card.innerHTML = `<h2>${s.title}</h2><p class="muted">Could not load <code>${BASE}${s.file}</code> (${e.message}).</p>`;
         }
 
         content.appendChild(card);
@@ -143,3 +179,4 @@
   </script>
 </body>
 </html>
+
