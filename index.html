@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="style.css">
 
   <style>
-    /* Enhanced readability and high contrast on dark backgrounds */
     :root { --gap: 1rem; --text-light: #e2e8f0; --text-bright: #f1f5f9; }
 
     body {
@@ -26,14 +25,9 @@
       font-weight: 600;
     }
 
-    p, li, a, span {
-      color: var(--text-light);
-    }
+    p, li, a, span { color: var(--text-light); }
 
-    a {
-      color: #60a5fa;
-      text-decoration: none;
-    }
+    a { color: #60a5fa; text-decoration: none; }
     a:hover { text-decoration: underline; }
 
     .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
@@ -68,86 +62,24 @@
     .carousel { position: relative; display: block; user-select: none; }
     .carousel .viewport { overflow: hidden; border-radius: 12px; }
     .carousel .track { display: flex; padding: 0; margin: 0; list-style: none; transition: transform .35s ease; }
-    .carousel .slide { position: relative; flex: 0 0 100%; }
-    .carousel img { display: block; width: 100%; height: auto; object-fit: cover; }
-    .carousel .nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      border: 0;
-      background: #111827;
-      color: #f1f5f9;
-      width: 40px;
-      height: 40px;
-      border-radius: 999px;
-      opacity: .85;
-      cursor: pointer;
-    }
+    .carousel .slide { position: relative; flex: 0 0 100%; cursor: pointer; }
+    .carousel img { display: block; width: 100%; height: auto; object-fit: cover; border-radius: 10px; transition: transform .3s ease; }
+    .carousel img:hover { transform: scale(1.02); }
+    .carousel .nav { position: absolute; top: 50%; transform: translateY(-50%); border: 0; background: #111827; color: #f1f5f9; width: 40px; height: 40px; border-radius: 999px; opacity: .85; cursor: pointer; }
     .carousel .prev { left: .5rem; }
     .carousel .next { right: .5rem; }
     .carousel .dots { display: flex; gap: .4rem; justify-content: center; margin-top: .6rem; }
     .carousel .dots button { width: .55rem; height: .55rem; border-radius: 999px; border: 0; background: #475569; }
     .carousel .dots [aria-selected="true"] { background: #93c5fd; }
 
-    /* eye/expand overlay */
-    .carousel .expand {
-      position: absolute;
-      right: .5rem;
-      bottom: .5rem;
-      display: grid;
-      place-items: center;
-      width: 32px;
-      height: 32px;
-      border-radius: 10px;
-      border: 1px solid #64748b;
-      background: #ffffffd8;
-      color: #111827;
-    }
-
     /* Lightbox */
     #lightbox[hidden] { display: none; }
     #lightbox { position: fixed; inset: 0; z-index: 1000; }
     #lightbox .lb-overlay { position: absolute; inset: 0; background: rgba(0,0,0,.65); }
-    #lightbox .lb-content {
-      position: relative;
-      display: grid;
-      grid-template-columns: 48px 1fr 48px;
-      grid-template-rows: auto 1fr auto;
-      gap: .5rem;
-      width: min(1200px, 92vw);
-      height: min(86vh, 900px);
-      margin: 4vh auto;
-      background: #0b1020;
-      padding: .75rem;
-      border-radius: 16px;
-    }
-    #lightbox .lb-img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      background: #0b1020;
-      grid-column: 1 / -1;
-      grid-row: 2;
-    }
-    #lightbox .lb-close {
-      position: absolute;
-      top: .2rem;
-      right: .4rem;
-      font-size: 2rem;
-      border: 0;
-      background: none;
-      color: #f1f5f9;
-      cursor: pointer;
-    }
-    #lightbox .lb-nav {
-      border: 0;
-      background: rgba(255,255,255,.12);
-      color: #fff;
-      width: 44px;
-      height: 44px;
-      border-radius: 999px;
-      align-self: center;
-    }
+    #lightbox .lb-content { position: relative; display: grid; grid-template-columns: 48px 1fr 48px; grid-template-rows: auto 1fr auto; gap: .5rem; width: min(1200px, 92vw); height: min(86vh, 900px); margin: 4vh auto; background: #0b1020; padding: .75rem; border-radius: 16px; }
+    #lightbox .lb-img { width: 100%; height: 100%; object-fit: contain; background: #0b1020; grid-column: 1 / -1; grid-row: 2; }
+    #lightbox .lb-close { position: absolute; top: .2rem; right: .4rem; font-size: 2rem; border: 0; background: none; color: #f1f5f9; cursor: pointer; }
+    #lightbox .lb-nav { border: 0; background: rgba(255,255,255,.12); color: #fff; width: 44px; height: 44px; border-radius: 999px; align-self: center; }
     #lightbox .lb-prev { grid-column: 1; grid-row: 2; justify-self: center; }
     #lightbox .lb-next { grid-column: 3; grid-row: 2; justify-self: center; }
     #lightbox .lb-cap { color: #e2e8f0; grid-column: 2; grid-row: 3; justify-self: center; }
@@ -232,6 +164,114 @@
   <footer class="site-footer container">
     <p>© 2025 Angel Vasquez</p>
   </footer>
+
+  <!-- ===== Carousel + Lightbox Script ===== -->
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    (function () {
+      const lightbox = document.createElement('div');
+      lightbox.id = 'lightbox';
+      lightbox.hidden = true;
+      lightbox.innerHTML = `
+        <div class="lb-overlay" data-lb-close></div>
+        <figure class="lb-content" role="dialog" aria-modal="true" aria-label="Slide">
+          <button class="lb-close" aria-label="Close" data-lb-close>&times;</button>
+          <button class="lb-nav lb-prev" aria-label="Previous" data-lb-prev>&larr;</button>
+          <img class="lb-img" src="" alt="Expanded slide">
+          <button class="lb-nav lb-next" aria-label="Next" data-lb-next>&rarr;</button>
+          <figcaption class="lb-cap"><span data-lb-count>1/1</span></figcaption>
+        </figure>`;
+      document.body.appendChild(lightbox);
+
+      const lbImg = lightbox.querySelector('.lb-img');
+      const lbCount = lightbox.querySelector('[data-lb-count]');
+      const lbPrev = lightbox.querySelector('[data-lb-prev]');
+      const lbNext = lightbox.querySelector('[data-lb-next]');
+      const lbCloseBtns = lightbox.querySelectorAll('[data-lb-close]');
+
+      let lbList = [];
+      let lbIndex = 0;
+
+      function lbRender() {
+        if (!lbList.length) return;
+        lbImg.src = lbList[lbIndex].src;
+        lbImg.alt = lbList[lbIndex].alt || 'Expanded slide';
+        lbCount.textContent = `${lbIndex + 1}/${lbList.length}`;
+      }
+
+      function lbOpen(images, index) {
+        lbList = images;
+        lbIndex = index;
+        lightbox.hidden = false;
+        lbRender();
+      }
+
+      function lbClose() { lightbox.hidden = true; }
+      lbPrev.onclick = () => { lbIndex = (lbIndex - 1 + lbList.length) % lbList.length; lbRender(); };
+      lbNext.onclick = () => { lbIndex = (lbIndex + 1) % lbList.length; lbRender(); };
+      lbCloseBtns.forEach(b => b.onclick = lbClose);
+      lightbox.addEventListener('click', e => { if (e.target.matches('.lb-overlay,[data-lb-close]')) lbClose(); });
+      window.addEventListener('keydown', e => {
+        if (lightbox.hidden) return;
+        if (e.key === 'Escape') lbClose();
+        if (e.key === 'ArrowLeft') lbPrev.click();
+        if (e.key === 'ArrowRight') lbNext.click();
+      });
+
+      document.querySelectorAll('[data-carousel]').forEach(root => {
+        const track = root.querySelector('[data-carousel-track]');
+        const viewport = root.querySelector('[data-carousel-viewport]');
+        const prevBtn = root.querySelector('[data-carousel-prev]');
+        const nextBtn = root.querySelector('[data-carousel-next]');
+        const dotsWrap = root.querySelector('[data-carousel-dots]');
+
+        const slideImgs = Array.from({ length: 10 }, (_, i) => `./${i + 1}.jpg`);
+        slideImgs.forEach((src, i) => {
+          const li = document.createElement('li');
+          li.className = 'slide';
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = `Project slide ${i + 1}`;
+          img.addEventListener('click', () => lbOpen(imgs, i));
+          li.appendChild(img);
+          track.appendChild(li);
+        });
+
+        const slides = Array.from(track.querySelectorAll('.slide'));
+        const imgs = slides.map(s => s.querySelector('img'));
+
+        let dots = [];
+        if (dotsWrap) {
+          slides.forEach((_, i) => {
+            const b = document.createElement('button');
+            b.type = 'button';
+            b.role = 'tab';
+            b.setAttribute('aria-label', `Go to slide ${i + 1}`);
+            if (i === 0) b.setAttribute('aria-selected', 'true');
+            b.addEventListener('click', () => goTo(i));
+            dotsWrap.appendChild(b);
+          });
+          dots = Array.from(dotsWrap.children);
+        }
+
+        let index = 0;
+        function update() {
+          const offset = -index * viewport.clientWidth;
+          track.style.transform = `translateX(${offset}px)`;
+          dots.forEach((d, i) => d.setAttribute('aria-selected', i === index ? 'true' : 'false'));
+        }
+        function goTo(i) { index = Math.max(0, Math.min(i, slides.length - 1)); update(); }
+        function next() { goTo(index + 1); }
+        function prev() { goTo(index - 1); }
+
+        nextBtn.onclick = next;
+        prevBtn.onclick = prev;
+        window.addEventListener('resize', update);
+        update();
+      });
+    })();
+  });
+  </script>
 </body>
 </html>
 
