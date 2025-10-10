@@ -236,3 +236,21 @@ section.container{scroll-margin-top:80px}
   .lb-next{ right: 6px; }
   .lb-close{ top: 6px; right: 6px; }
 }
+.cert-logo {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cert-logo img {
+  max-width: 140px;
+  height: auto;
+  opacity: 0.95;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.cert-logo img:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
