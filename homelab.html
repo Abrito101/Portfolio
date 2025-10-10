@@ -5,24 +5,36 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Home Lab — Angel Vasquez</title>
 
-  <!-- Reuse your existing styles -->
+  <!-- Reuse your site styles -->
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Minimal MD renderer (marked) -->
+  <!-- Minimal Markdown renderer -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
   <style>
+    /* Page-specific light styling that fits your theme */
     .lab-wrapper { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
-    .lab-grid { display: grid; gap: 1.25rem; }
-    .lab-card { background: var(--card, #121318); border: 1px solid var(--border, rgba(255,255,255,.08)); border-radius: 16px; padding: 1rem; }
-    .lab-card h2 { margin-top: 0 }
+    .lab-grid { display: grid; gap: 1.1rem; }
+    .lab-card {
+      background: var(--card, #121318);
+      border: 1px solid var(--border, rgba(255,255,255,.08));
+      border-radius: 16px;
+      padding: 1rem;
+      box-shadow: var(--shadow, 0 10px 30px rgba(0,0,0,.35));
+    }
+    .lab-card h2 { margin: .2rem 0 .6rem }
     .toc { display:flex; flex-wrap:wrap; gap:.5rem; margin:.5rem 0 1rem }
-    .toc a { padding:.35rem .6rem; border:1px solid var(--border, rgba(255,255,255,.08)); border-radius:999px; text-decoration:none }
+    .toc a {
+      padding:.35rem .6rem; border:1px solid var(--border, rgba(255,255,255,.08));
+      border-radius:999px; text-decoration:none
+    }
     .lab-card img { max-width: 100%; height: auto; border-radius: 8px; }
     pre { overflow:auto; }
+    .muted { color: var(--muted, #9aa3b2); }
   </style>
 </head>
 <body>
+  <!-- Header reused from your site -->
   <header class="site-header">
     <nav class="nav container">
       <div>
@@ -42,7 +54,7 @@
 
   <main class="lab-wrapper">
     <h1>Home Lab</h1>
-    <p class="tagline">Notes and configs from my networking, VLAN, VPN, and router builds.</p>
+    <p class="tagline muted">Notes and configs from my networking, VLAN, VPN, and router builds.</p>
 
     <div class="lab-card">
       <strong>On this page</strong>
@@ -57,30 +69,38 @@
   </footer>
 
   <script>
-    // Files to render (title, path, anchor id)
+    // ==== Configure your sections (exact file names in notes/homelab/) ====
+    const BASE = "notes/homelab/";
     const SECTIONS = [
-      { title: "The Home Lab (Overview)", file: "notes/the-home-lab.md", id: "overview" },
-      { title: "GMK Tech Mini PC (Router)", file: "notes/gmk-tech-mini-pc-router.md", id: "gmk" },
-      { title: "Hitron Cable Modem", file: "notes/hitron-cable-modem.md", id: "modem" },
-      { title: "My Main Desktop", file: "notes/my-main-desktop.md", id: "desktop" },
+      { id: "overview", title: "The Home Lab (Overview)", file: "The Home Lab.md" },
+      { id: "gmk",      title: "GMK Tech Mini PC (Router)", file: "GMK Tech Mini PC (router).md" },
+      { id: "modem",    title: "Hitron Cable Modem",        file: "Hitron cable modem.md" },
+      { id: "desktop",  title: "My Main Desktop",           file: "My main desktop.md" },
     ];
 
-    // Convert Obsidian wiki-links & image embeds to standard Markdown before marked renders it
-    function preprocessObsidian(md) {
-      // Convert image embeds: ![[image.png]] -> ![](notes/assets/image.png)
-      md = md.replace(/!\[\[([^|\]]+)(?:\|[^]]*)?\]\]/g, (m, file) => `![](notes/assets/${file.trim()})`);
+    // Build a lookup so Obsidian [[links]] to note titles can jump to the right section
+    const titleToAnchor = Object.fromEntries(
+      SECTIONS.map(s => [s.title.toLowerCase().replace(/\s+/g,' ').trim(), `#${s.id}`])
+    );
 
-      // Convert internal links: [[Title]] or [[Title|Text]] -> anchor links within this page if we can map
-      md = md.replace(/\[\[([^|\]]+)(?:\|([^]]+))?\]\]/g, (m, target, text) => {
-        const t = target.trim().toLowerCase();
-        const map = {
-          "the home lab": "#overview",
-          "gmk tech mini pc (router)": "#gmk",
-          "hitron cable modem": "#modem",
-          "my main desktop": "#desktop"
-        };
-        const href = map[t] || "#"; // fallback
-        return `[${text || target}](${href})`;
+    // Encode a *single path segment* (preserves slashes, encodes spaces, parentheses, etc.)
+    const joinEncoded = (base, segment) => base + encodeURIComponent(segment).replace(/%2F/gi,'/');
+
+    // Convert Obsidian syntax to web-friendly Markdown
+    function preprocessObsidian(md) {
+      // 1) Image embeds: ![[file.png]] or ![[folder/file.png|alt]]
+      // -> ![](notes/homelab/assets/file.png)
+      md = md.replace(/!\[\[([^|\]]+)(?:\|([^]]*))?\]\]/g, (_m, file, alt) => {
+        const clean = String(file).trim();
+        const url = joinEncoded(BASE + "assets/", clean);
+        return `![${alt ? alt.trim() : ""}](${url})`;
+      });
+
+      // 2) Internal links: [[Title]] or [[Title|Text]] -> anchor if we have a matching section
+      md = md.replace(/\[\[([^|\]]+)(?:\|([^]]+))?\]\]/g, (_m, target, text) => {
+        const t = String(target).trim().toLowerCase().replace(/\s+/g,' ');
+        const href = titleToAnchor[t] || '#';
+        return `[${(text || target).trim()}](${href})`;
       });
 
       return md;
@@ -95,27 +115,30 @@
 
       // Fetch + render each section
       for (const s of SECTIONS) {
+        const card = document.createElement("section");
+        card.className = "lab-card";
+        card.id = s.id;
+
         try {
-          const res = await fetch(s.file);
-          if (!res.ok) throw new Error(s.file + " not found");
+          const res = await fetch(joinEncoded(BASE, s.file));
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
           let md = await res.text();
           md = preprocessObsidian(md);
-          const html = marked.parse(md);
 
-          const card = document.createElement("section");
-          card.className = "lab-card";
-          card.id = s.id;
+          // Render with marked
+          const html = marked.parse(md);
           card.innerHTML = `<h2>${s.title}</h2>${html}`;
-          content.appendChild(card);
         } catch (e) {
-          const card = document.createElement("section");
-          card.className = "lab-card";
-          card.id = s.id;
-          card.innerHTML = `<h2>${s.title}</h2><p>Could not load <code>${s.file}</code>. Make sure it’s committed to your repo.</p>`;
-          content.appendChild(card);
+          card.innerHTML = `
+            <h2>${s.title}</h2>
+            <p class="muted">Could not load <code>${BASE}${s.file}</code> (${e.message}).<br>
+            Make sure the file exists in your repo and the name & casing match exactly.</p>`;
         }
+
+        content.appendChild(card);
       }
     }
+
     render();
   </script>
 </body>
