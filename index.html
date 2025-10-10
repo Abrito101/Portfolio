@@ -12,51 +12,17 @@
   <style>
     :root { --gap: 1rem; --text-light: #e2e8f0; --text-bright: #f1f5f9; }
 
-    body {
-      font-family: Poppins, system-ui, sans-serif;
-      margin: 0;
-      color: var(--text-light);
-      background-color: #0f172a;
-      line-height: 1.7;
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-      color: var(--text-bright);
-      font-weight: 600;
-    }
-
+    body { font-family: Poppins, system-ui, sans-serif; margin: 0; color: var(--text-light); background-color: #0f172a; line-height: 1.7; }
+    h1, h2, h3, h4, h5, h6 { color: var(--text-bright); font-weight: 600; }
     p, li, a, span { color: var(--text-light); }
-
-    a { color: #60a5fa; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    a { color: #60a5fa; text-decoration: none; } a:hover { text-decoration: underline; }
 
     .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
-    .btn {
-      display: inline-block;
-      padding: .6rem 1rem;
-      border-radius: .6rem;
-      border: 1px solid #60a5fa;
-      text-decoration: none;
-      color: #f1f5f9;
-      background: #1e293b;
-      box-shadow: 0 0 10px rgba(96,165,250,0.2);
-      transition: background .3s, transform .2s;
-    }
+    .btn { display: inline-block; padding: .6rem 1rem; border-radius: .6rem; border: 1px solid #60a5fa; text-decoration: none; color: #f1f5f9; background: #1e293b; box-shadow: 0 0 10px rgba(96,165,250,0.2); transition: background .3s, transform .2s; }
     .btn:hover { background: #2563eb; transform: scale(1.03); }
 
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: var(--gap);
-    }
-    .project-card {
-      padding: 1rem;
-      border: 1px solid #334155;
-      border-radius: 12px;
-      background: #1e293b;
-      color: var(--text-light);
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
-    }
+    .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--gap); }
+    .project-card { padding: 1rem; border: 1px solid #334155; border-radius: 12px; background: #1e293b; color: var(--text-light); box-shadow: 0 0 10px rgba(0,0,0,0.4); }
 
     /* Carousel core */
     .carousel { position: relative; display: block; user-select: none; }
@@ -127,10 +93,29 @@
     <section id="projects" class="container">
       <h3>Projects</h3>
       <div class="project-grid">
+        <!-- Zeus Malware Projects (renamed from College Projects) -->
         <article class="project-card">
-          <h4>College Projects</h4>
-          <p>These are some of my favorite projects that I worked on in my university Associates Program at Mohawk Valley Community College.</p>
-          <div class="carousel" data-carousel tabindex="0" aria-label="College Projects slideshow">
+          <h4>Zeus Malware Projects</h4>
+          <p>
+            Reverse engineering exercises focused on the Zeus banking trojan: static and dynamic analysis in a sandbox, unpacking, IOC extraction
+            (registry keys, mutexes, file paths), and observing C2 traffic in Wireshark. Includes write‑ups on detection opportunities and blue‑team
+            mitigations.
+          </p>
+          <div class="carousel" data-carousel tabindex="0" aria-label="Zeus Malware slideshow">
+            <div class="viewport" data-carousel-viewport>
+              <ul class="track" data-carousel-track></ul>
+            </div>
+            <button class="nav prev" aria-label="Previous slide" data-carousel-prev><span aria-hidden="true">&larr;</span></button>
+            <button class="nav next" aria-label="Next slide" data-carousel-next><span aria-hidden="true">&rarr;</span></button>
+            <div class="dots" role="tablist" aria-label="Slide navigation" data-carousel-dots></div>
+          </div>
+        </article>
+
+        <!-- Snort IDS Project -->
+        <article class="project-card">
+          <h4>Snort IDS Project</h4>
+          <p>Packet inspection, alert tuning, and rule‑writing demo. Click any slide to expand.</p>
+          <div class="carousel" data-carousel data-images='["1.png","2.png","3.png","4.png","5.png","6.png","7.png","8.png","9.png","10.png","11.png","12.png","13.png","14.png"]' tabindex="0" aria-label="Snort IDS slideshow">
             <div class="viewport" data-carousel-viewport>
               <ul class="track" data-carousel-track></ul>
             </div>
@@ -169,17 +154,18 @@
   <script>
   document.addEventListener('DOMContentLoaded', () => {
     (function () {
+      // Lightbox
       const lightbox = document.createElement('div');
       lightbox.id = 'lightbox';
       lightbox.hidden = true;
       lightbox.innerHTML = `
-        <div class="lb-overlay" data-lb-close></div>
-        <figure class="lb-content" role="dialog" aria-modal="true" aria-label="Slide">
-          <button class="lb-close" aria-label="Close" data-lb-close>&times;</button>
-          <button class="lb-nav lb-prev" aria-label="Previous" data-lb-prev>&larr;</button>
-          <img class="lb-img" src="" alt="Expanded slide">
-          <button class="lb-nav lb-next" aria-label="Next" data-lb-next>&rarr;</button>
-          <figcaption class="lb-cap"><span data-lb-count>1/1</span></figcaption>
+        <div class=\"lb-overlay\" data-lb-close></div>
+        <figure class=\"lb-content\" role=\"dialog\" aria-modal=\"true\" aria-label=\"Slide\">
+          <button class=\"lb-close\" aria-label=\"Close\" data-lb-close>&times;</button>
+          <button class=\"lb-nav lb-prev\" aria-label=\"Previous\" data-lb-prev>&larr;</button>
+          <img class=\"lb-img\" src=\"\" alt=\"Expanded slide\">
+          <button class=\"lb-nav lb-next\" aria-label=\"Next\" data-lb-next>&rarr;</button>
+          <figcaption class=\"lb-cap\"><span data-lb-count>1/1</span></figcaption>
         </figure>`;
       document.body.appendChild(lightbox);
 
@@ -189,35 +175,17 @@
       const lbNext = lightbox.querySelector('[data-lb-next]');
       const lbCloseBtns = lightbox.querySelectorAll('[data-lb-close]');
 
-      let lbList = [];
-      let lbIndex = 0;
-
-      function lbRender() {
-        if (!lbList.length) return;
-        lbImg.src = lbList[lbIndex].src;
-        lbImg.alt = lbList[lbIndex].alt || 'Expanded slide';
-        lbCount.textContent = `${lbIndex + 1}/${lbList.length}`;
-      }
-
-      function lbOpen(images, index) {
-        lbList = images;
-        lbIndex = index;
-        lightbox.hidden = false;
-        lbRender();
-      }
-
-      function lbClose() { lightbox.hidden = true; }
+      let lbList = []; let lbIndex = 0;
+      function lbRender(){ if(!lbList.length) return; lbImg.src = lbList[lbIndex].src; lbImg.alt = lbList[lbIndex].alt || 'Expanded slide'; lbCount.textContent = `${lbIndex+1}/${lbList.length}`; }
+      function lbOpen(images, index){ lbList = images; lbIndex = index; lightbox.hidden = false; lbRender(); }
+      function lbClose(){ lightbox.hidden = true; }
       lbPrev.onclick = () => { lbIndex = (lbIndex - 1 + lbList.length) % lbList.length; lbRender(); };
       lbNext.onclick = () => { lbIndex = (lbIndex + 1) % lbList.length; lbRender(); };
       lbCloseBtns.forEach(b => b.onclick = lbClose);
       lightbox.addEventListener('click', e => { if (e.target.matches('.lb-overlay,[data-lb-close]')) lbClose(); });
-      window.addEventListener('keydown', e => {
-        if (lightbox.hidden) return;
-        if (e.key === 'Escape') lbClose();
-        if (e.key === 'ArrowLeft') lbPrev.click();
-        if (e.key === 'ArrowRight') lbNext.click();
-      });
+      window.addEventListener('keydown', e => { if (lightbox.hidden) return; if (e.key === 'Escape') lbClose(); if (e.key === 'ArrowLeft') lbPrev.click(); if (e.key === 'ArrowRight') lbNext.click(); });
 
+      // Carousels
       document.querySelectorAll('[data-carousel]').forEach(root => {
         const track = root.querySelector('[data-carousel-track]');
         const viewport = root.querySelector('[data-carousel-viewport]');
@@ -225,49 +193,37 @@
         const nextBtn = root.querySelector('[data-carousel-next]');
         const dotsWrap = root.querySelector('[data-carousel-dots]');
 
-        const slideImgs = Array.from({ length: 10 }, (_, i) => `./${i + 1}.jpg`);
+        // Allow per-carousel images via data-images (JSON array) or fallback to 1..10.jpg
+        let slideImgs; const json = root.getAttribute('data-images');
+        try { slideImgs = json ? JSON.parse(json) : Array.from({length:10},(_,i)=>`./${i+1}.jpg`); }
+        catch { slideImgs = Array.from({length:10},(_,i)=>`./${i+1}.jpg`); }
+
+        // Build slides
         slideImgs.forEach((src, i) => {
-          const li = document.createElement('li');
-          li.className = 'slide';
-          const img = document.createElement('img');
-          img.src = src;
-          img.alt = `Project slide ${i + 1}`;
-          img.addEventListener('click', () => lbOpen(imgs, i));
-          li.appendChild(img);
-          track.appendChild(li);
+          const li = document.createElement('li'); li.className = 'slide';
+          const img = document.createElement('img'); img.src = src; img.alt = `Project slide ${i+1}`;
+          li.appendChild(img); track.appendChild(li);
         });
 
         const slides = Array.from(track.querySelectorAll('.slide'));
         const imgs = slides.map(s => s.querySelector('img'));
+        imgs.forEach((img, i) => img.addEventListener('click', () => lbOpen(imgs, i)));
 
+        // Dots
         let dots = [];
         if (dotsWrap) {
           slides.forEach((_, i) => {
-            const b = document.createElement('button');
-            b.type = 'button';
-            b.role = 'tab';
-            b.setAttribute('aria-label', `Go to slide ${i + 1}`);
-            if (i === 0) b.setAttribute('aria-selected', 'true');
-            b.addEventListener('click', () => goTo(i));
-            dotsWrap.appendChild(b);
+            const b = document.createElement('button'); b.type='button'; b.role='tab'; b.setAttribute('aria-label',`Go to slide ${i+1}`);
+            if (i===0) b.setAttribute('aria-selected','true'); b.addEventListener('click',()=>goTo(i)); dotsWrap.appendChild(b);
           });
           dots = Array.from(dotsWrap.children);
         }
 
         let index = 0;
-        function update() {
-          const offset = -index * viewport.clientWidth;
-          track.style.transform = `translateX(${offset}px)`;
-          dots.forEach((d, i) => d.setAttribute('aria-selected', i === index ? 'true' : 'false'));
-        }
-        function goTo(i) { index = Math.max(0, Math.min(i, slides.length - 1)); update(); }
-        function next() { goTo(index + 1); }
-        function prev() { goTo(index - 1); }
-
-        nextBtn.onclick = next;
-        prevBtn.onclick = prev;
-        window.addEventListener('resize', update);
-        update();
+        function update(){ const offset = -index * viewport.clientWidth; track.style.transform = `translateX(${offset}px)`; dots.forEach((d,i)=>d.setAttribute('aria-selected', i===index ? 'true':'false')); }
+        function goTo(i){ index = Math.max(0, Math.min(i, slides.length-1)); update(); }
+        function next(){ goTo(index+1); } function prev(){ goTo(index-1); }
+        nextBtn.onclick = next; prevBtn.onclick = prev; window.addEventListener('resize', update); update();
       });
     })();
   });
