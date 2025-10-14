@@ -1,165 +1,247 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Blog — Angel Vasquez</title>
-<link rel="preconnect" href="https://unpkg.com" />
-<style>
-:root { --max: 900px; }
-body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; margin: 0; color: #0f172a; background: #f8fafc; }
-header { background: white; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 10; }
-.wrap { max-width: var(--max); margin: 0 auto; padding: 1rem; }
-h1 { font-size: clamp(1.5rem, 3vw, 2rem); margin: 0.25rem 0; }
-.grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
-@media (min-width: 800px) { .grid { grid-template-columns: 1fr 320px; } }
-.post-card { display: flex; gap: 0.75rem; padding: 0.75rem; background: white; border: 1px solid #e2e8f0; border-radius: 14px; cursor: pointer; align-items: center; }
-.post-card:hover { border-color: #94a3b8; }
-.thumb { width: 64px; height: 64px; border-radius: 10px; object-fit: cover; background: #e2e8f0; }
-.meta { font-size: 0.85rem; color: #475569; }
-.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
-.tag { font-size: 0.75rem; background: #e2e8f0; color: #334155; padding: 2px 8px; border-radius: 999px; }
-article { background: white; border: 1px solid #e2e8f0; border-radius: 14px; padding: 1rem; }
-article img { max-width: 100%; height: auto; border-radius: 8px; }
-.back { display: inline-block; margin-bottom: 0.5rem; text-decoration: none; color: #0f172a; }
-.hidden { display: none; }
-</style>
-</head>
-<body>
-<header>
-<div class="wrap">
-<h1>Blog</h1>
-<p class="meta">Notes on homelab, networking, and blue‑team growth.</p>
-</div>
-</header>
-
-
-<main class="wrap grid">
-<section>
-<div id="list"></div>
-</section>
-<aside>
-<div class="post-card" onclick="location.href='../index.html#projects'">
-<img class="thumb" src="../assets/security-plus-badge.png" alt="Security+ badge" onerror="this.style.display='none'" />
-<div>
-<div><strong>See my Projects</strong></div>
-<div class="meta">Homelab, VLANs, OPNsense, WireGuard…</div>
-</div>
-</div>
-</aside>
-</main>
-
-
-<section class="wrap hidden" id="reader">
-<a href="#" class="back" onclick="showList(); return false;">← Back to all posts</a>
-<article id="content"></article>
-</section>
-
-
-<script src="https://unpkg.com/marked/marked.min.js"></script>
-<script>
-
-  
-const listEl = document.getElementById('list');
-const reader = document.getElementById('reader');
-const contentEl = document.getElementById('content');
-const mainGrid = document.querySelector('main');
-
-
-async function fetchJSON(url) {
-const res = await fetch(url + `?v=${Date.now()}`);
-if (!res.ok) throw new Error('Failed to load ' + url);
-return res.json();
-}
-
-
-function postCard(p) {
-const div = document.createElement('div');
-div.className = 'post-card';
-div.onclick = () => openPost(p.file);
-</html>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Blog — Angel Vasquez</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Blog — Angel Vasquez</title>
 
+  <!-- Reuse your site’s fonts & CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
 
-<!-- Fonts & site CSS (reuse your portfolio look) -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css">
+  <style>
+    :root { --gap: 1rem; --text-light: #e2e8f0; --text-bright: #f1f5f9; }
+    body { font-family: Poppins, system-ui, sans-serif; margin: 0; color: var(--text-light); background-color: #0f172a; line-height: 1.7; }
+    h1, h2, h3, h4, h5, h6 { color: var(--text-bright); font-weight: 600; }
+    a { color: #60a5fa; text-decoration: none; } a:hover { text-decoration: underline; }
 
+    .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
+    .site-header { background: #0b1020; border-bottom: 1px solid #334155; }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .logo { margin: 0; }
+    .nav-links { list-style: none; display: flex; gap: 1rem; padding: 0; margin: 0; }
 
-<style>
-:root { --gap: 1rem; --text-light: #e2e8f0; --text-bright: #f1f5f9; }
-body { font-family: Poppins, system-ui, sans-serif; margin: 0; color: var(--text-light); background-color: #0f172a; line-height: 1.7; }
-h1, h2, h3, h4, h5, h6 { color: var(--text-bright); font-weight: 600; }
-a { color: #60a5fa; text-decoration: none; } a:hover { text-decoration: underline; }
+    /* Layout */
+    .grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+    @media (min-width: 980px) { .grid { grid-template-columns: 1fr 320px; } }
 
+    /* Cards */
+    .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.4); }
 
-.container { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
-.site-header { background: #0b1020; border-bottom: 1px solid #334155; }
-.nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-.logo { margin: 0; }
-.nav-links { list-style: none; display: flex; gap: 1rem; padding: 0; margin: 0; }
+    /* List */
+    .post-list { display: grid; gap: 0.85rem; }
+    .post-card { display: grid; grid-template-columns: 84px 1fr; gap: .9rem; padding: 1rem; cursor: pointer; }
+    .post-card:hover { border-color: #476080; }
+    .thumb { width: 84px; height: 84px; border-radius: 10px; object-fit: cover; background: #0b1020; }
+    .meta { color: #94a3b8; font-size: .9rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+    .tag { font-size: .75rem; background: #0b1020; color: #e2e8f0; padding: 2px 8px; border-radius: 999px; border: 1px solid #334155; }
 
+    /* Reader */
+    #reader { padding: 1.25rem; }
+    #content img { max-width: 100%; height: auto; border-radius: 8px; }
+    .back { display: inline-block; margin: .5rem 0 1rem; }
+    .hidden { display: none; }
 
-/* Layout */
-.grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
-@media (min-width: 980px) { .grid { grid-template-columns: 1fr 320px; } }
+    /* Aside */
+    .aside { display: grid; gap: 1rem; }
+    .aside .tile { padding: 1rem; }
 
-
-/* Cards */
-.card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.4); }
-
-
-/* List */
-.post-list { display: grid; gap: 0.85rem; }
-.post-card { display: grid; grid-template-columns: 84px 1fr; gap: .9rem; padding: 1rem; cursor: pointer; }
-.post-card:hover { border-color: #476080; }
-.thumb { width: 84px; height: 84px; border-radius: 10px; object-fit: cover; background: #0b1020; }
-.meta { color: #94a3b8; font-size: .9rem; }
-.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
-.tag { font-size: .75rem; background: #0b1020; color: #e2e8f0; padding: 2px 8px; border-radius: 999px; border: 1px solid #334155; }
-
-
-/* Reader */
-#reader { padding: 1.25rem; }
-#content img { max-width: 100%; height: auto; border-radius: 8px; }
-.back { display: inline-block; margin: .5rem 0 1rem; }
-.hidden { display: none; }
-
-
-/* Aside */
-.aside { display: grid; gap: 1rem; }
-.aside .tile { padding: 1rem; }
-
-
-/* Small helper */
-.header-hero { padding: 1rem 0 .5rem; }
-</style>
+    /* Small helper */
+    .header-hero { padding: 1rem 0 .5rem; }
+  </style>
 </head>
 <body>
-<!-- Header matches your main site -->
-<header class="site-header">
-<nav class="nav container">
-<div>
-<h1 class="logo">Angel Vasquez</h1>
-<p>Cybersecurity Student • Problem Solver • Lifelong Learner</p>
-</div>
-<ul class="nav-links">
-<li><a href="../index.html#about">About</a></li>
-<li><a href="../index.html#projects">Projects</a></li>
-<li><a href="../index.html#resume">Resume</a></li>
-<li><a href="../index.html#contact">Contact</a></li>
-<li><a href="./index.html">Blog</a></li>
-<li><a href="../homelab.html">Home Lab</a></li>
-</ul>
-</nav>
-</header>
+  <!-- Header matches your main site -->
+  <header class="site-header">
+    <nav class="nav container">
+      <div>
+        <h1 class="logo">Angel Vasquez</h1>
+        <p>Cybersecurity Student • Problem Solver • Lifelong Learner</p>
+      </div>
+      <ul class="nav-links">
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../index.html#projects">Projects</a></li>
+        <li><a href="../index.html#resume">Resume</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+        <!-- Note: we are inside /Blog already, so this links to itself -->
+        <li><a href="./index.html">Blog</a></li>
+        <li><a href="../homelab.html">Home Lab</a></li>
+      </ul>
+    </nav>
+  </header>
 
+  <main class="container grid">
+    <section>
+      <div class="header-hero">
+        <h2>Blog</h2>
+        <p class="meta">Homelab builds, OPNsense tricks, SOC study notes, and blue-team write-ups.</p>
+      </div>
+      <div id="list" class="post-list"></div>
+    </section>
 
+    <aside class="aside">
+      <div class="card tile">
+        <h3>Popular Topics</h3>
+        <div class="tags" id="tag-cloud"></div>
+      </div>
+      <div class="card tile">
+        <h3>New here?</h3>
+        <p>Start with my <a href="#" id="latest-link">latest post</a> or check out <a href="../index.html#projects">Projects</a>.</p>
+      </div>
+    </aside>
+  </main>
+
+  <section class="container hidden" id="reader">
+    <a href="#" class="back" onclick="showList(); return false;">← Back to all posts</a>
+    <article id="content" class="card"></article>
+  </section>
+
+  <footer class="site-footer container">
+    <p>© 2025 Angel Vasquez</p>
+  </footer>
+
+  <!-- Markdown renderer -->
+  <script src="https://unpkg.com/marked/marked.min.js"></script>
+  <script>
+    const listEl = document.getElementById('list');
+    const reader = document.getElementById('reader');
+    const contentEl = document.getElementById('content');
+    const tagCloud = document.getElementById('tag-cloud');
+    const latestLink = document.getElementById('latest-link');
+
+    async function fetchJSON(url){
+      const res = await fetch(url + `?v=${Date.now()}`);
+      if(!res.ok) throw new Error('Failed to load ' + url);
+      return res.json();
+    }
+
+    function card(post){
+      const el = document.createElement('div');
+      el.className = 'card post-card';
+      el.onclick = () => openPost(post.file);
+
+      const img = document.createElement('img');
+      img.className = 'thumb';
+      img.src = post.cover || '';
+      img.alt = '';
+      img.onerror = () => img.style.display = 'none';
+
+      const wrap = document.createElement('div');
+      const title = document.createElement('h3');
+      title.style.margin = '0 0 .25rem';
+      title.textContent = post.title || post.file;
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      meta.textContent = formatDate(post.date);
+      const sum = document.createElement('p');
+      sum.className = 'meta';
+      sum.textContent = post.summary || '';
+
+      const tags = document.createElement('div');
+      tags.className = 'tags';
+      (post.tags || []).forEach(t => {
+        const span = document.createElement('span');
+        span.className = 'tag';
+        span.textContent = t;
+        tags.appendChild(span);
+      });
+
+      wrap.appendChild(title);
+      wrap.appendChild(meta);
+      wrap.appendChild(sum);
+      wrap.appendChild(tags);
+      el.appendChild(img);
+      el.appendChild(wrap);
+      return el;
+    }
+
+    function formatDate(s){
+      const d = new Date(s);
+      if (isNaN(d)) return s || '';
+      return d.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+
+    function buildTagCloud(posts){
+      const counts = new Map();
+      posts.forEach(p => (p.tags||[]).forEach(t => counts.set(t, (counts.get(t)||0) + 1)));
+      tagCloud.innerHTML = '';
+      [...counts.entries()].sort((a,b)=>b[1]-a[1]).slice(0,12).forEach(([t,n]) => {
+        const a = document.createElement('a');
+        a.href = '#';
+        a.className = 'tag';
+        a.textContent = `${t} (${n})`;
+        a.onclick = (e)=>{ e.preventDefault(); filterByTag(t); };
+        tagCloud.appendChild(a);
+      });
+    }
+
+    let allPosts = [];
+
+    async function listPosts(){
+      // Stays relative inside /Blog
+      allPosts = await fetchJSON('./posts.json');
+      allPosts.sort((a,b)=> (b.date||'').localeCompare(a.date||''));
+      listEl.innerHTML = '';
+      allPosts.forEach(p => listEl.appendChild(card(p)));
+      if (allPosts[0]) latestLink.onclick = (e)=>{ e.preventDefault(); openPost(allPosts[0].file); };
+      buildTagCloud(allPosts);
+    }
+
+    function filterByTag(tag){
+      listEl.innerHTML = '';
+      allPosts.filter(p => (p.tags||[]).includes(tag)).forEach(p => listEl.appendChild(card(p)));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showList(){
+      reader.classList.add('hidden');
+      document.querySelector('main').classList.remove('hidden');
+      history.pushState({}, '', location.pathname);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    async function openPost(file){
+      try {
+        // Stays relative inside /Blog
+        const url = `./posts/${file}`;
+        const res = await fetch(url);
+        const text = await res.text();
+        const html = renderMarkdownWithFrontMatter(text);
+        contentEl.innerHTML = html;
+        document.querySelector('main').classList.add('hidden');
+        reader.classList.remove('hidden');
+        history.pushState({}, '', `#${encodeURIComponent(file)}`);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (e) { alert('Failed to load post: '+ e.message); }
+    }
+
+    function renderMarkdownWithFrontMatter(md){
+      const fm = md.match(/^---[\s\S]*?---/);
+      let meta = {}; let body = md;
+      if (fm){
+        const yaml = fm[0].replace(/^---|---$/g,'').trim();
+        yaml.split(/\n/).forEach(line => {
+          const m = line.match(/^(\w+):\s*(.*)$/);
+          if (m){
+            let v = m[2].trim();
+            v = v.replace(/^"|"$/g,'').replace(/^'|'$/g,'');
+            meta[m[1]] = v;
+          }
+        });
+        body = md.slice(fm[0].length).trimStart();
+      }
+      const cover = meta.cover ? `<p><img src="${meta.cover}" alt="cover"/></p>` : '';
+      const head = `<div style="padding:1rem 1rem 0"><h1 style="margin:.2rem 0">${meta.title||''}</h1><div class="meta">${meta.date?formatDate(meta.date):''}</div></div>`;
+      const rendered = marked.parse(body);
+      return `<div class="card" style="padding:1rem">${cover}${head}${rendered}</div>`;
+    }
+
+    window.addEventListener('load', async () => {
+      await listPosts();
+      const hash = decodeURIComponent(location.hash.replace('#',''));
+      if (hash) openPost(hash);
+    });
+  </script>
+</body>
 </html>
