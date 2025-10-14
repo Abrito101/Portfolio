@@ -64,7 +64,6 @@
         <li><a href="../index.html#projects">Projects</a></li>
         <li><a href="../index.html#resume">Resume</a></li>
         <li><a href="../index.html#contact">Contact</a></li>
-        <!-- Note: we are inside /Blog already, so this links to itself -->
         <li><a href="./index.html">Blog</a></li>
         <li><a href="../homelab.html">Home Lab</a></li>
       </ul>
@@ -179,7 +178,6 @@
     let allPosts = [];
 
     async function listPosts(){
-      // Stays relative inside /Blog
       allPosts = await fetchJSON('./posts.json');
       allPosts.sort((a,b)=> (b.date||'').localeCompare(a.date||''));
       listEl.innerHTML = '';
@@ -203,7 +201,6 @@
 
     async function openPost(file){
       try {
-        // Stays relative inside /Blog
         const url = `./posts/${file}`;
         const res = await fetch(url);
         const text = await res.text();
@@ -245,3 +242,4 @@
   </script>
 </body>
 </html>
+
