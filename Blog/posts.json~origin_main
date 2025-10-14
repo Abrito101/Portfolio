@@ -1,0 +1,10 @@
+[
+  {
+    "file": "2025-10-14-hello-blog.md",
+    "title": "Hello Blog — Why I’m Writing About My Homelab & Security+",
+    "date": "2025-10-14",
+    "summary": "Kicking off my blog with what I’m building, how it maps to SOC roles, and CySA+ prep.",
+    "tags": ["homelab", "security-plus", "cysa", "soc"],
+    "cover": "../assets/2025-10/example.png"
+  }
+]
