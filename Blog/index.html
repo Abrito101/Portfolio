@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Blog — Angel Vasquez</title>
+<link rel="preconnect" href="https://unpkg.com" />
+<style>
+:root { --max: 900px; }
+body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; margin: 0; color: #0f172a; background: #f8fafc; }
+header { background: white; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 10; }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 1rem; }
+h1 { font-size: clamp(1.5rem, 3vw, 2rem); margin: 0.25rem 0; }
+.grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 800px) { .grid { grid-template-columns: 1fr 320px; } }
+.post-card { display: flex; gap: 0.75rem; padding: 0.75rem; background: white; border: 1px solid #e2e8f0; border-radius: 14px; cursor: pointer; align-items: center; }
+.post-card:hover { border-color: #94a3b8; }
+.thumb { width: 64px; height: 64px; border-radius: 10px; object-fit: cover; background: #e2e8f0; }
+.meta { font-size: 0.85rem; color: #475569; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.tag { font-size: 0.75rem; background: #e2e8f0; color: #334155; padding: 2px 8px; border-radius: 999px; }
+article { background: white; border: 1px solid #e2e8f0; border-radius: 14px; padding: 1rem; }
+article img { max-width: 100%; height: auto; border-radius: 8px; }
+.back { display: inline-block; margin-bottom: 0.5rem; text-decoration: none; color: #0f172a; }
+.hidden { display: none; }
+</style>
+</head>
+<body>
+<header>
+<div class="wrap">
+<h1>Blog</h1>
+<p class="meta">Notes on homelab, networking, and blue‑team growth.</p>
+</div>
+</header>
+
+
+<main class="wrap grid">
+<section>
+<div id="list"></div>
+</section>
+<aside>
+<div class="post-card" onclick="location.href='../index.html#projects'">
+<img class="thumb" src="../assets/security-plus-badge.png" alt="Security+ badge" onerror="this.style.display='none'" />
+<div>
+<div><strong>See my Projects</strong></div>
+<div class="meta">Homelab, VLANs, OPNsense, WireGuard…</div>
+</div>
+</div>
+</aside>
+</main>
+
+
+<section class="wrap hidden" id="reader">
+<a href="#" class="back" onclick="showList(); return false;">← Back to all posts</a>
+<article id="content"></article>
+</section>
+
+
+<script src="https://unpkg.com/marked/marked.min.js"></script>
+<script>
+const listEl = document.getElementById('list');
+const reader = document.getElementById('reader');
+const contentEl = document.getElementById('content');
+const mainGrid = document.querySelector('main');
+
+
+async function fetchJSON(url) {
+const res = await fetch(url + `?v=${Date.now()}`);
+if (!res.ok) throw new Error('Failed to load ' + url);
+return res.json();
+}
+
+
+function postCard(p) {
+const div = document.createElement('div');
+div.className = 'post-card';
+div.onclick = () => openPost(p.file);
+const img = document.createElement('img');
+img.className = 'thumb';
+img.src = p.cover || '';
+img.alt = '';
+img.onerror = () => { img.style.display = 'none'; };
+const right = document.createElement('div');
+const title = document.createElement('div');
+title.innerHTML = `<strong>${p.title || p.file}</strong>`;
+</html>
