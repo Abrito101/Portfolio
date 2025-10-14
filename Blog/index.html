@@ -5,88 +5,50 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Blog — Angel Vasquez</title>
 
-  <!-- Reuse site font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Reuse your site’s fonts & CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../style.css">
 
   <style>
-    :root {
-      --bg: #0f172a;
-      --panel: #1e293b;
-      --panel-2: #0b1020;
-      --border: #334155;
-      --text: #e2e8f0;
-      --text-bright: #f8fafc;
-      --muted: #94a3b8;
-      --link: #60a5fa;
-      --max: 1100px;
-      --content: 760px;
-      --radius: 14px;
-    }
+    :root { --gap: 1rem; --text-light: #e2e8f0; --text-bright: #f1f5f9; }
+    body { font-family: Poppins, system-ui, sans-serif; margin: 0; color: var(--text-light); background-color: #0f172a; line-height: 1.7; }
+    h1, h2, h3, h4, h5, h6 { color: var(--text-bright); font-weight: 600; }
+    a { color: #60a5fa; text-decoration: none; } a:hover { text-decoration: underline; }
 
-    /* Base */
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
-    h1, h2, h3, h4 { color: var(--text-bright); font-weight: 700; line-height: 1.2; }
-    a { color: var(--link); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    /* Layout */
-    .container { max-width: var(--max); margin: 0 auto; padding: 2rem 1rem; }
-    .site-header { background: var(--panel-2); border-bottom: 1px solid var(--border); }
+    .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
+    .site-header { background: #0b1020; border-bottom: 1px solid #334155; }
     .nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
     .logo { margin: 0; }
     .nav-links { list-style: none; display: flex; gap: 1rem; padding: 0; margin: 0; }
 
-    /* Page intro */
-    .intro { max-width: var(--content); margin: 0 auto 1.25rem; text-align: center; }
-    .intro p { color: var(--muted); margin-top: .25rem; }
+    /* Layout */
+    .grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+    @media (min-width: 980px) { .grid { grid-template-columns: 1fr 320px; } }
 
-    /* List + reader */
-    .grid { max-width: var(--content); margin: 0 auto; }
-    .post-list { display: grid; gap: 1rem; }
+    /* Cards */
+    .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.4); }
 
-    /* Card */
-    .card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: 0 0 18px rgba(0,0,0,.35);
-    }
-
-    .post-card {
-      display: grid;
-      grid-template-columns: 110px 1fr;
-      gap: 1rem;
-      padding: 1rem;
-      align-items: center;
-      cursor: pointer;
-      transition: transform .15s ease, border-color .15s ease;
-    }
-    .post-card:hover { transform: translateY(-1px); border-color: #476080; }
-    .thumb { width: 110px; height: 78px; border-radius: 10px; object-fit: cover; background: var(--panel-2); }
-    .post-title { margin: 0 0 .35rem; font-size: 1.35rem; font-weight: 700; letter-spacing: .2px; word-break: keep-all; overflow-wrap: anywhere; }
-    .meta { color: var(--muted); font-size: .95rem; }
-    .summary { color: var(--text); font-size: .95rem; margin: .5rem 0 0; }
-    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-    .tag { font-size: .75rem; background: var(--panel-2); color: var(--text); padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border); }
+    /* List */
+    .post-list { display: grid; gap: 0.85rem; }
+    .post-card { display: grid; grid-template-columns: 84px 1fr; gap: .9rem; padding: 1rem; cursor: pointer; }
+    .post-card:hover { border-color: #476080; }
+    .thumb { width: 84px; height: 84px; border-radius: 10px; object-fit: cover; background: #0b1020; }
+    .meta { color: #94a3b8; font-size: .9rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+    .tag { font-size: .75rem; background: #0b1020; color: #e2e8f0; padding: 2px 8px; border-radius: 999px; border: 1px solid #334155; }
 
     /* Reader */
-    #reader { max-width: var(--content); margin: 1rem auto 2rem; }
-    .back { display: inline-block; margin: 0 0 .75rem; }
-    #content { padding: 1.25rem; }
-    #content img { max-width: 100%; height: auto; border-radius: 10px; }
-    #content h1 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); margin: .25rem 0 .2rem; }
-    #content .meta { margin-bottom: .6rem; }
+    #reader { padding: 1.25rem; }
+    #content img { max-width: 100%; height: auto; border-radius: 8px; }
+    .back { display: inline-block; margin: .5rem 0 1rem; }
     .hidden { display: none; }
+
+    /* Aside */
+    .aside { display: grid; gap: 1rem; }
+    .aside .tile { padding: 1rem; }
+
+    /* Small helper */
+    .header-hero { padding: 1rem 0 .5rem; }
   </style>
 </head>
 <body>
@@ -108,21 +70,31 @@
     </nav>
   </header>
 
-  <main class="container">
-    <section class="intro">
-      <h2>Blog</h2>
-      <p>Homelab builds, OPNsense tricks, SOC study notes, and blue-team write-ups.</p>
-    </section>
-
-    <section class="grid" id="list-wrap">
+  <main class="container grid">
+    <section>
+      <div class="header-hero">
+        <h2>Blog</h2>
+        <p class="meta">Homelab builds, OPNsense tricks, SOC study notes, and blue-team write-ups.</p>
+      </div>
       <div id="list" class="post-list"></div>
     </section>
 
-    <section class="grid hidden" id="reader">
-      <a href="#" class="back" onclick="showList(); return false;">← Back to all posts</a>
-      <article id="content" class="card"></article>
-    </section>
+    <aside class="aside">
+      <div class="card tile">
+        <h3>Popular Topics</h3>
+        <div class="tags" id="tag-cloud"></div>
+      </div>
+      <div class="card tile">
+        <h3>New here?</h3>
+        <p>Start with my <a href="#" id="latest-link">latest post</a> or check out <a href="../index.html#projects">Projects</a>.</p>
+      </div>
+    </aside>
   </main>
+
+  <section class="container hidden" id="reader">
+    <a href="#" class="back" onclick="showList(); return false;">← Back to all posts</a>
+    <article id="content" class="card"></article>
+  </section>
 
   <footer class="site-footer container">
     <p>© 2025 Angel Vasquez</p>
@@ -131,10 +103,11 @@
   <!-- Markdown renderer -->
   <script src="https://unpkg.com/marked/marked.min.js"></script>
   <script>
-    const listWrap = document.getElementById('list-wrap');
     const listEl = document.getElementById('list');
     const reader = document.getElementById('reader');
     const contentEl = document.getElementById('content');
+    const tagCloud = document.getElementById('tag-cloud');
+    const latestLink = document.getElementById('latest-link');
 
     async function fetchJSON(url){
       const res = await fetch(url + `?v=${Date.now()}`);
@@ -142,16 +115,10 @@
       return res.json();
     }
 
-    function formatDate(s){
-      const d = new Date(s);
-      if (isNaN(d)) return s || '';
-      return d.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
-    }
-
-    function makeCard(post){
-      const wrap = document.createElement('div');
-      wrap.className = 'card post-card';
-      wrap.onclick = () => openPost(post.file);
+    function card(post){
+      const el = document.createElement('div');
+      el.className = 'card post-card';
+      el.onclick = () => openPost(post.file);
 
       const img = document.createElement('img');
       img.className = 'thumb';
@@ -159,17 +126,15 @@
       img.alt = '';
       img.onerror = () => img.style.display = 'none';
 
-      const right = document.createElement('div');
-      const h = document.createElement('h3');
-      h.className = 'post-title';
-      h.textContent = post.title || post.file;
-
+      const wrap = document.createElement('div');
+      const title = document.createElement('h3');
+      title.style.margin = '0 0 .25rem';
+      title.textContent = post.title || post.file;
       const meta = document.createElement('div');
       meta.className = 'meta';
       meta.textContent = formatDate(post.date);
-
-      const sum = document.createElement('div');
-      sum.className = 'summary';
+      const sum = document.createElement('p');
+      sum.className = 'meta';
       sum.textContent = post.summary || '';
 
       const tags = document.createElement('div');
@@ -181,45 +146,71 @@
         tags.appendChild(span);
       });
 
-      right.appendChild(h);
-      right.appendChild(meta);
-      if (sum.textContent) right.appendChild(sum);
-      if (tags.children.length) right.appendChild(tags);
+      wrap.appendChild(title);
+      wrap.appendChild(meta);
+      wrap.appendChild(sum);
+      wrap.appendChild(tags);
+      el.appendChild(img);
+      el.appendChild(wrap);
+      return el;
+    }
 
-      wrap.appendChild(img);
-      wrap.appendChild(right);
-      return wrap;
+    function formatDate(s){
+      const d = new Date(s);
+      if (isNaN(d)) return s || '';
+      return d.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+
+    function buildTagCloud(posts){
+      const counts = new Map();
+      posts.forEach(p => (p.tags||[]).forEach(t => counts.set(t, (counts.get(t)||0) + 1)));
+      tagCloud.innerHTML = '';
+      [...counts.entries()].sort((a,b)=>b[1]-a[1]).slice(0,12).forEach(([t,n]) => {
+        const a = document.createElement('a');
+        a.href = '#';
+        a.className = 'tag';
+        a.textContent = `${t} (${n})`;
+        a.onclick = (e)=>{ e.preventDefault(); filterByTag(t); };
+        tagCloud.appendChild(a);
+      });
     }
 
     let allPosts = [];
 
     async function listPosts(){
       allPosts = await fetchJSON('./posts.json');
-      allPosts.sort((a,b) => (b.date||'').localeCompare(a.date||''));
+      allPosts.sort((a,b)=> (b.date||'').localeCompare(a.date||''));
       listEl.innerHTML = '';
-      allPosts.forEach(p => listEl.appendChild(makeCard(p)));
+      allPosts.forEach(p => listEl.appendChild(card(p)));
+      if (allPosts[0]) latestLink.onclick = (e)=>{ e.preventDefault(); openPost(allPosts[0].file); };
+      buildTagCloud(allPosts);
+    }
+
+    function filterByTag(tag){
+      listEl.innerHTML = '';
+      allPosts.filter(p => (p.tags||[]).includes(tag)).forEach(p => listEl.appendChild(card(p)));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function showList(){
       reader.classList.add('hidden');
-      listWrap.classList.remove('hidden');
+      document.querySelector('main').classList.remove('hidden');
       history.pushState({}, '', location.pathname);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     async function openPost(file){
-      try{
-        const res = await fetch(`./posts/${file}`);
-        const md = await res.text();
-        const html = renderMarkdownWithFrontMatter(md);
+      try {
+        const url = `./posts/${file}`;
+        const res = await fetch(url);
+        const text = await res.text();
+        const html = renderMarkdownWithFrontMatter(text);
         contentEl.innerHTML = html;
-        listWrap.classList.add('hidden');
+        document.querySelector('main').classList.add('hidden');
         reader.classList.remove('hidden');
         history.pushState({}, '', `#${encodeURIComponent(file)}`);
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      }catch(e){
-        alert('Failed to load post: ' + e.message);
-      }
+      } catch (e) { alert('Failed to load post: '+ e.message); }
     }
 
     function renderMarkdownWithFrontMatter(md){
@@ -237,10 +228,10 @@
         });
         body = md.slice(fm[0].length).trimStart();
       }
-      const cover = meta.cover ? `<p><img src="${meta.cover}" alt="cover"></p>` : '';
-      const head  = `<div style="padding:0 1rem"><h1>${meta.title||''}</h1><div class="meta">${meta.date?formatDate(meta.date):''}</div></div>`;
+      const cover = meta.cover ? `<p><img src="${meta.cover}" alt="cover"/></p>` : '';
+      const head = `<div style="padding:1rem 1rem 0"><h1 style="margin:.2rem 0">${meta.title||''}</h1><div class="meta">${meta.date?formatDate(meta.date):''}</div></div>`;
       const rendered = marked.parse(body);
-      return `<div class="card" style="padding:1rem 1.25rem">${cover}${head}${rendered}</div>`;
+      return `<div class="card" style="padding:1rem">${cover}${head}${rendered}</div>`;
     }
 
     window.addEventListener('load', async () => {
