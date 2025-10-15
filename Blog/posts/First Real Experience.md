@@ -15,3 +15,8 @@ next we configure our DHCP server so our VLAN can give IP addresses to my girlfr
 
 Then we create firewall rules to bypass the vpn. In Firewall -> Rules -> [OPT3] we add a new rule. In this rule our source OPT 3 will allow any traffic to any destination using the WAN_DHCP gateway. This bypasses the Mullvlad gateway we set up for our network. Then we set up a rule that blocks any traffic from OPT 3 to the LAN to isolate this network from our network. 
 
+Now we configure our NAT rules since we do have a hybrid/manual setup and we put our interface as WAN and make the source address our OPT 3 network, and the NAT address the WAN. Now we need to configure the WLAN. 
+
+So now we go under Omada Tplink cloud manager and create a new WLAN under Quick Config, this creates the wifi for us to connect to. We make the SSID (the name of the wifi) and then we put in the password. 
+
+Then we create a new LAN 
