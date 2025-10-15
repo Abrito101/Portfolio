@@ -1,17 +1,9 @@
 [
   {
-    "file": "Letter to My Girlfriend.md",
-    "title": "Letter to My Girlfriend",
+    "file": "First Real Experience.md",
+    "title": "First Real Experience",
     "date": "",
-    "summary": "I am so beyond blessed to have a woman like you. I work so hard for you, I just hope you see the vison.",
-    "tags": [],
-    "cover": ""
-  },
-  {
-    "file": "Test Blog Post.md",
-    "title": "Test Blog Post",
-    "date": "",
-    "summary": "This is my test blog post to see if the sync configuration I set up using Obsidian Git works.",
+    "summary": "On Monday, I experienced the most realistic issue with my home lab. My girlfriend works remotely occasionally at her job, and her job uses a VPN. This is a very big conflict that I didn't consider before configuring the ",
     "tags": [],
     "cover": ""
   }
