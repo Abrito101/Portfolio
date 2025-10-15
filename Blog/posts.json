@@ -7,12 +7,3 @@
     "tags": ["homelab", "security-plus", "cysa", "soc"],
     "cover": "Assets/2025-10/Example.png"
   },
-  {
-    "file": "2025-10-14-test-blog-post.md",
-    "title": "Test Blog Post",
-    "date": "2025-10-14",
-    "summary": "Testing automatic Obsidian sync integration.",
-    "tags": ["test", "obsidian"],
-    "cover": ""
-  }
-]
