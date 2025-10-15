@@ -5,54 +5,148 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Blog — Angel Vasquez</title>
 
-  <!-- Reuse your site’s fonts & CSS -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../style.css">
 
   <style>
-    :root { --gap: 1rem; --text-light: #e2e8f0; --text-bright: #f1f5f9; }
-    body { font-family: Poppins, system-ui, sans-serif; margin: 0; color: var(--text-light); background-color: #0f172a; line-height: 1.7; }
-    h1, h2, h3, h4, h5, h6 { color: var(--text-bright); font-weight: 600; }
-    a { color: #60a5fa; text-decoration: none; } a:hover { text-decoration: underline; }
+    :root {
+      --bg: #0f172a;
+      --panel: #1e293b;
+      --panel-2: #0b1020;
+      --border: #334155;
+      --text: #e2e8f0;
+      --text-bright: #f8fafc;
+      --muted: #94a3b8;
+      --link: #60a5fa;
+      --max: 1100px;
+      --content: 760px;
+      --radius: 14px;
+    }
 
-    .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
-    .site-header { background: #0b1020; border-bottom: 1px solid #334155; }
-    .nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-    .logo { margin: 0; }
-    .nav-links { list-style: none; display: flex; gap: 1rem; padding: 0; margin: 0; }
+    body {
+      margin: 0;
+      font-family: Poppins, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
 
-    /* Layout */
-    .grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
-    @media (min-width: 980px) { .grid { grid-template-columns: 1fr 320px; } }
+    h1, h2, h3 {
+      color: var(--text-bright);
+      font-weight: 700;
+    }
 
-    /* Cards */
-    .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.4); }
+    a {
+      color: var(--link);
+      text-decoration: none;
+    }
 
-    /* List */
-    .post-list { display: grid; gap: 0.85rem; }
-    .post-card { display: grid; grid-template-columns: 84px 1fr; gap: .9rem; padding: 1rem; cursor: pointer; }
-    .post-card:hover { border-color: #476080; }
-    .thumb { width: 84px; height: 84px; border-radius: 10px; object-fit: cover; background: #0b1020; }
-    .meta { color: #94a3b8; font-size: .9rem; }
-    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
-    .tag { font-size: .75rem; background: #0b1020; color: #e2e8f0; padding: 2px 8px; border-radius: 999px; border: 1px solid #334155; }
+    a:hover {
+      text-decoration: underline;
+    }
 
-    /* Reader */
-    #reader { padding: 1.25rem; }
-    #content img { max-width: 100%; height: auto; border-radius: 8px; }
-    .back { display: inline-block; margin: .5rem 0 1rem; }
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .site-header {
+      background: var(--panel-2);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      padding: 0;
+      margin: 0;
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .intro p {
+      color: var(--muted);
+    }
+
+    main {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    /* Blog cards */
+    #list {
+      flex: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      max-width: var(--content);
+      margin: 0 auto;
+    }
+
+    .post-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      text-align: center; /* Center everything */
+      transition: transform 0.15s ease;
+    }
+
+    .post-card:hover {
+      transform: scale(1.01);
+    }
+
+    .post-card h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.6rem;
+    }
+
+    .meta {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .tags {
+      margin-top: 1rem;
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--panel-2);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.8rem;
+      margin: 0 4px;
+      border: 1px solid var(--border);
+    }
+
+    #reader {
+      max-width: var(--content);
+      margin: 0 auto;
+    }
+
     .hidden { display: none; }
-
-    /* Aside */
-    .aside { display: grid; gap: 1rem; }
-    .aside .tile { padding: 1rem; }
-
-    /* Small helper */
-    .header-hero { padding: 1rem 0 .5rem; }
   </style>
 </head>
 <body>
-  <!-- Header matches your main site -->
   <header class="site-header">
     <nav class="nav container">
       <div>
@@ -70,21 +164,21 @@
     </nav>
   </header>
 
-  <main class="container grid">
-    <section>
-      <div class="header-hero">
+  <main class="container">
+    <section style="flex:3">
+      <div class="intro">
         <h2>Blog</h2>
-        <p class="meta">Homelab builds, OPNsense tricks, SOC study notes, and blue-team write-ups.</p>
+        <p>Homelab builds, OPNsense tricks, SOC study notes, and blue-team write-ups.</p>
       </div>
-      <div id="list" class="post-list"></div>
+      <div id="list"></div>
     </section>
 
-    <aside class="aside">
-      <div class="card tile">
+    <aside style="flex:1">
+      <div class="card" style="padding:1rem; margin-bottom:1rem;">
         <h3>Popular Topics</h3>
-        <div class="tags" id="tag-cloud"></div>
+        <div id="tag-cloud"></div>
       </div>
-      <div class="card tile">
+      <div class="card" style="padding:1rem;">
         <h3>New here?</h3>
         <p>Start with my <a href="#" id="latest-link">latest post</a> or check out <a href="../index.html#projects">Projects</a>.</p>
       </div>
@@ -92,8 +186,8 @@
   </main>
 
   <section class="container hidden" id="reader">
-    <a href="#" class="back" onclick="showList(); return false;">← Back to all posts</a>
-    <article id="content" class="card"></article>
+    <a href="#" onclick="showList();return false;" style="color:#60a5fa;">← Back</a>
+    <div id="content"></div>
   </section>
 
   <footer class="site-footer container">
@@ -128,7 +222,6 @@
 
       const wrap = document.createElement('div');
       const title = document.createElement('h3');
-      title.style.margin = '0 0 .25rem';
       title.textContent = post.title || post.file;
       const meta = document.createElement('div');
       meta.className = 'meta';
@@ -229,9 +322,9 @@
         body = md.slice(fm[0].length).trimStart();
       }
       const cover = meta.cover ? `<p><img src="${meta.cover}" alt="cover"/></p>` : '';
-      const head = `<div style="padding:1rem 1rem 0"><h1 style="margin:.2rem 0">${meta.title||''}</h1><div class="meta">${meta.date?formatDate(meta.date):''}</div></div>`;
+      const head = `<div style="padding:1rem 1rem 0;text-align:center"><h1 style="margin:.2rem 0">${meta.title||''}</h1><div class="meta">${meta.date?formatDate(meta.date):''}</div></div>`;
       const rendered = marked.parse(body);
-      return `<div class="card" style="padding:1rem">${cover}${head}${rendered}</div>`;
+      return `<div class="card" style="padding:1rem;text-align:center">${cover}${head}${rendered}</div>`;
     }
 
     window.addEventListener('load', async () => {
@@ -242,4 +335,3 @@
   </script>
 </body>
 </html>
-

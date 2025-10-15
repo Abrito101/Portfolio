@@ -5,6 +5,7 @@
     "date": "2025-10-14",
     "summary": "Kicking off my blog with what I’m building, how it maps to SOC roles, and CySA+ prep.",
     "tags": ["homelab", "security-plus", "cysa", "soc"],
-    "cover": "../assets/2025-10/example.png"
+    "cover": "Assets/2025-10/Example.png"
   }
 ]
+
