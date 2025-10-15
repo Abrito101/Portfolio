@@ -1,10 +1,10 @@
 [
   {
-    "file": "2025-10-14-hello-blog.md",
-    "title": "Hello Blog — Why I’m Writing About My Homelab & Security+",
-    "date": "2025-10-14",
-    "summary": "Kicking off my blog with what I’m building, how it maps to SOC roles, and CySA+ prep.",
-    "tags": ["homelab", "security-plus", "cysa", "soc"],
-    "cover": "Assets/2025-10/Example.png"
+    "file": "Test Blog Post.md",
+    "title": "Test Blog Post",
+    "date": "",
+    "summary": "This is my test blog post to see if the sync configuration I set up using Obsidian Git works.",
+    "tags": [],
+    "cover": ""
   }
 ]
