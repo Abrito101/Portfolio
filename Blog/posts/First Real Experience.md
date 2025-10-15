@@ -1,2 +1,2 @@
 
-On Monday, I experienced the most realistic issue with my home lab. My girlfriend works remotely occasionally at her job, and her job uses a VPN. This is a very big conflict that I didn't consider before configuring the VPN. So when she wasn't able to connect to 
+On Monday, I experienced the most realistic issue with my home lab. My girlfriend works remotely occasionally at her job, and her job uses a VPN. This is a very big conflict that I didn't consider before configuring the VPN. So when she wasn't able to connect to  
