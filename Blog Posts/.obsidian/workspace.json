@@ -11,10 +11,14 @@
             "id": "0d235f0547ebd33a",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Test Blog Post.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Test Blog Post"
             }
           }
         ]
@@ -49,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "Git",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -137,12 +141,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "Test Blog Post.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline"
+              "title": "Outline of Test Blog Post"
             }
           },
           {
@@ -176,9 +181,9 @@
   },
   "active": "0d235f0547ebd33a",
   "lastOpenFiles": [
+    "Test Blog Post.md",
     "conflict-files-obsidian-git.md",
     "remote-blog.md",
-    "Untitled.md",
     "Welcome.md",
     "Untitled.base",
     "Untitled",
