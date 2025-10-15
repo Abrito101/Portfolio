@@ -1,9 +1,9 @@
 [
   {
     "file": "2025-10-14-hello-blog.md",
-    "title": "Hello Blog — Why I’m Writing About My Homelab & Security+",
+    "title": "Hello Blog — This is my first blog",
     "date": "2025-10-14",
-    "summary": "Kicking off my blog with what I’m building, how it maps to SOC roles, and CySA+ prep.",
+    "summary": "Kicking off my blog with what I’m building, how it maps to SOC roles, and CySA+ prep. I created htis blog to be able to share my personality and be able to be authentic on my journey on becoming a cyber security professional.",
     "tags": ["homelab", "security-plus", "cysa", "soc"],
     "cover": "Assets/2025-10/Example.png"
   }
