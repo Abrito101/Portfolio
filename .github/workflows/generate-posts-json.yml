@@ -1,0 +1,34 @@
+name: Generate posts.json
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "Blog/posts/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Generate posts.json
+        run: |
+          node Blog/tools/generate-posts.js
+
+      - name: Commit posts.json if changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(blog): auto-generate posts.json"
+          file_pattern: Blog/posts.json
