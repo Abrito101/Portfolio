@@ -292,25 +292,19 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-  async function openPost(file){
-  try {
-    // Encode filenames like "My Post.md" -> "My%20Post.md"
-    const safe = encodeURIComponent(file);
-    const url = `./posts/${safe}`;
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
-    const text = await res.text();
-    const html = renderMarkdownWithFrontMatter(text);
-    contentEl.innerHTML = html;
-    document.querySelector('main').classList.add('hidden');
-    reader.classList.remove('hidden');
-    history.pushState({}, '', `#${encodeURIComponent(file)}`);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  } catch (e) {
-    console.error(e);
-    alert('Failed to load post: ' + e.message);
-  }
-}
+     async function openPost(file){
+      try {
+        const url = `./posts/${file}`;
+        const res = await fetch(url);
+        const text = await res.text();
+        const html = renderMarkdownWithFrontMatter(text);
+        contentEl.innerHTML = html;
+        document.querySelector('main').classList.add('hidden');
+        reader.classList.remove('hidden');
+        history.pushState({}, '', `#${encodeURIComponent(file)}`);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (e) { alert('Failed to load post: '+ e.message); }
+    }
 
 
     function renderMarkdownWithFrontMatter(md){
