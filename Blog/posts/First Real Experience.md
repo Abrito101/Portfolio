@@ -12,3 +12,6 @@ So under Interfaces -> Devices -> VLAN we create a new VLAN by pressing the plus
 Then under Interfaces -> Assignments we add a new interface, we select the interface we made OPT3 and add it to our interfaces. Then we go under interfaces -> [OPT3] and enable the interface, under IPv4 Configuration Type we check static IPV4. and then scroll down and in static ipv4 configuration we add our address. 192.168.30.1.  
 
 next we configure our DHCP server so our VLAN can give IP addresses to my girlfriend's computer. Under Services -> ISC DHCPv4 we enable DHCP server on the OPT3 interface then set the scope, we choose 192.168.30.100-200. 
+
+Then we create firewall rules to bypass the vpn. In Firewall -> Rules -> [OPT3] we add a new rule. In this rule our source OPT 3 will allow any traffic to any destination using the WAN_DHCP gateway. This bypasses the Mullvlad gateway we set up for our network. Then we set up a rule that blocks any traffic from OPT 3 to the LAN to isolate this network from our network. 
+
