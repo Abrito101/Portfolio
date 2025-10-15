@@ -1,11 +1,18 @@
 [
   {
     "file": "2025-10-14-hello-blog.md",
-    "title": "Hello Blog — This is my first blog",
+    "title": "Hello Blog — Why I’m Writing About My Homelab & Security+",
     "date": "2025-10-14",
-    "summary": "Kicking off my blog with what I’m building, how it maps to SOC roles, and CySA+ prep. I created htis blog to be able to share my personality and be able to be authentic on my journey on becoming a cyber security professional.",
+    "summary": "Kicking off my blog with what I’m building, how it maps to SOC roles, and CySA+ prep.",
     "tags": ["homelab", "security-plus", "cysa", "soc"],
     "cover": "Assets/2025-10/Example.png"
+  },
+  {
+    "file": "2025-10-14-test-blog-post.md",
+    "title": "Test Blog Post",
+    "date": "2025-10-14",
+    "summary": "Testing automatic Obsidian sync integration.",
+    "tags": ["test", "obsidian"],
+    "cover": ""
   }
 ]
-
