@@ -203,20 +203,6 @@
   const tagCloud = document.getElementById('tag-cloud');
   const latestLink = document.getElementById('latest-link');
 
-  // --- simple on-page debug panel ---
-  const dbg = document.createElement('pre');
-  dbg.style.cssText = 'background:#0b1020;border:1px solid #334155;color:#e2e8f0;padding:.75rem;border-radius:10px;max-width:760px;margin:1rem auto;font-size:.85rem;white-space:pre-wrap;';
-  dbg.textContent = 'Debug:\n';
-  document.body.insertBefore(dbg, document.body.firstChild);
-  function log(...args){ console.log(...args); dbg.textContent += args.join(' ') + '\n'; }
-
-  function uiError(msg) {
-    const card = document.createElement('div');
-    card.className = 'post-card';
-    card.textContent = msg;
-    listEl.appendChild(card);
-    log('ERROR:', msg);
-  }
 
   async function fetchJSON(url){
     const u = url + (url.includes('?') ? '&' : '?') + 'v=' + Date.now();
