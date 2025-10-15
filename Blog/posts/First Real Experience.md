@@ -5,7 +5,10 @@ I went along with my troubleshooting steps I checked the cables on my router/swi
 
 So my plan to fix this is to make a seperate VLAN and WLAN that bypasses the VPN thats set on the network so instead of it going through AA Household -> Mullvad VPN -> WAN it goes Allina's Work Network -> ISP WAN.
 
-To do that we just need to make another VLAN, like we did with "IOT" Devices we need to make an instance, we will name this instance "AWN" 
+To do that we just need to make another VLAN, like we did with "IOT" Devices we need to make an instance, we will name this instance "OPT3" 
 
 So under Interfaces -> Devices -> VLAN we create a new VLAN by pressing the plus on the bottom left. 
 
+Then under Interfaces -> Assignments we add a new interface, we select the interface we made OPT3 and add it to our interfaces. Then we go under interfaces -> [OPT3] and enable the interface, under IPv4 Configuration Type we check static IPV4. and then scroll down and in static ipv4 configuration we add our address. 192.168.30.1.  
+
+next we configure our DHCP server so our VLAN can give IP addresses to my girlfriend's computer. Under Services -> ISC DHCPv4 we enable DHCP server on the OPT3 interface then set the scope, we choose 192.168.30.100-200. 
