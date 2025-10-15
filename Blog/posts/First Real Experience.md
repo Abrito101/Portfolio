@@ -19,4 +19,4 @@ Now we configure our NAT rules since we do have a hybrid/manual setup and we put
 
 So now we go under Omada Tplink cloud manager and create a new WLAN under Quick Config, this creates the wifi for us to connect to. We make the SSID (the name of the wifi) and then we put in the password. 
 
-Then we create a new LAN 
+Then we create a new LAN we add the VLANs IP address subnet and DHCP settings again. Then we go back into the WLAN we made and add our LAN we created and we should be all done. Connect to the wifi and test to see if your IP is a 192.168.30.x IP
