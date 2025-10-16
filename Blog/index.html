@@ -196,147 +196,176 @@
   
 <script src="https://unpkg.com/marked/marked.min.js"></script>
 
-  <script>
-    const listEl = document.getElementById('list');
-    const reader = document.getElementById('reader');
-    const contentEl = document.getElementById('content');
-    const tagCloud = document.getElementById('tag-cloud');
-    const latestLink = document.getElementById('latest-link');
+  <!-- (Optional) you may REMOVE the static include; the code below will load it if missing -->
+<!-- <script src="https://unpkg.com/marked/marked.min.js"></script> -->
 
-    async function fetchJSON(url){
-      const res = await fetch(url + `?v=${Date.now()}`);
-      if(!res.ok) throw new Error('Failed to load ' + url);
-      return res.json();
-    }
+<script>
+  const listEl = document.getElementById('list');
+  const reader = document.getElementById('reader');
+  const contentEl = document.getElementById('content');
+  const tagCloud = document.getElementById('tag-cloud');
+  const latestLink = document.getElementById('latest-link');
 
-    function card(post){
-      const el = document.createElement('div');
-      el.className = 'card post-card';
-      el.onclick = () => openPost(post.file);
-
-      const img = document.createElement('img');
-      img.className = 'thumb';
-      img.src = post.cover || '';
-      img.alt = '';
-      img.onerror = () => img.style.display = 'none';
-
-      const wrap = document.createElement('div');
-      const title = document.createElement('h3');
-      title.textContent = post.title || post.file;
-      const meta = document.createElement('div');
-      meta.className = 'meta';
-      meta.textContent = formatDate(post.date);
-      const sum = document.createElement('p');
-      sum.className = 'meta';
-      sum.textContent = post.summary || '';
-
-      const tags = document.createElement('div');
-      tags.className = 'tags';
-      (post.tags || []).forEach(t => {
-        const span = document.createElement('span');
-        span.className = 'tag';
-        span.textContent = t;
-        tags.appendChild(span);
-      });
-
-      wrap.appendChild(title);
-      wrap.appendChild(meta);
-      wrap.appendChild(sum);
-      wrap.appendChild(tags);
-      el.appendChild(img);
-      el.appendChild(wrap);
-      return el;
-    }
-
-    function formatDate(s){
-      const d = new Date(s);
-      if (isNaN(d)) return s || '';
-      return d.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
-    }
-
-    function buildTagCloud(posts){
-      const counts = new Map();
-      posts.forEach(p => (p.tags||[]).forEach(t => counts.set(t, (counts.get(t)||0) + 1)));
-      tagCloud.innerHTML = '';
-      [...counts.entries()].sort((a,b)=>b[1]-a[1]).slice(0,12).forEach(([t,n]) => {
-        const a = document.createElement('a');
-        a.href = '#';
-        a.className = 'tag';
-        a.textContent = `${t} (${n})`;
-        a.onclick = (e)=>{ e.preventDefault(); filterByTag(t); };
-        tagCloud.appendChild(a);
-      });
-    }
-
-    let allPosts = [];
-
-    async function listPosts(){
-      allPosts = await fetchJSON('./posts.json');
-      allPosts.sort((a,b)=> (b.date||'').localeCompare(a.date||''));
-      listEl.innerHTML = '';
-      allPosts.forEach(p => listEl.appendChild(card(p)));
-      if (allPosts[0]) latestLink.onclick = (e)=>{ e.preventDefault(); openPost(allPosts[0].file); };
-      buildTagCloud(allPosts);
-    }
-
-    function filterByTag(tag){
-      listEl.innerHTML = '';
-      allPosts.filter(p => (p.tags||[]).includes(tag)).forEach(p => listEl.appendChild(card(p)));
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function showList(){
-      reader.classList.add('hidden');
-      document.querySelector('main').classList.remove('hidden');
-      history.pushState({}, '', location.pathname);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    async function openPost(file){
-      try {
-        // encode filename to handle spaces safely; doesn’t change layout/UX
-        const safe = encodeURIComponent(file.replace(/^posts\//i, '').trim());
-        const url = `./posts/${safe}`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
-        const text = await res.text();
-        const html = renderMarkdownWithFrontMatter(text);
-        contentEl.innerHTML = html;
-        document.querySelector('main').classList.add('hidden');
-        reader.classList.remove('hidden');
-        history.pushState({}, '', `#${encodeURIComponent(file)}`);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } catch (e) { alert('Failed to load post: '+ e.message); }
-    }
-
-    function renderMarkdownWithFrontMatter(md){
-      const fm = md.match(/^---[\s\S]*?---/);
-      let meta = {}; let body = md;
-      if (fm){
-        const yaml = fm[0].replace(/^---|---$/g,'').trim();
-        yaml.split(/\n/).forEach(line => {
-          const m = line.match(/^(\w+):\s*(.*)$/);
-          if (m){
-            let v = m[2].trim();
-            v = v.replace(/^"|"$/g,'').replace(/^'|'$/g,'');
-            meta[m[1]] = v;
-          }
-        });
-        body = md.slice(fm[0].length).trimStart();
-      }
-      const cover = meta.cover ? `<p><img src="${meta.cover}" alt="cover"/></p>` : '';
-      const head = `<div style="padding:1rem 1rem 0;text-align:center"><h1 style="margin:.2rem 0">${meta.title||''}</h1><div class="meta">${meta.date?formatDate(meta.date):''}</div></div>`;
-      const rendered = marked.parse(body);
-      return `<div class="card" style="padding:1rem;text-align:center">${cover}${head}${rendered}</div>`;
-    }
-
-    window.addEventListener('load', async () => {
-      await listPosts();
-      const hash = decodeURIComponent(location.hash.replace('#',''));
-      if (hash) openPost(hash);
+  // NEW: robust loader that ensures `window.marked` exists
+  function loadScript(src) {
+    return new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = src;
+      s.onload = resolve;
+      s.onerror = reject;
+      document.head.appendChild(s);
     });
-  </script>
-</body>
-</html>
+  }
 
-</html>
+  async function ensureMarked() {
+    if (window.marked) return;
+    try {
+      await loadScript('https://unpkg.com/marked/marked.min.js');
+    } catch {
+      // backup CDN
+      await loadScript('https://cdn.jsdelivr.net/npm/marked/marked.min.js');
+    }
+    if (!window.marked) throw new Error('Could not load marked');
+  }
+
+  async function fetchJSON(url){
+    const res = await fetch(url + `?v=${Date.now()}`);
+    if(!res.ok) throw new Error('Failed to load ' + url);
+    return res.json();
+  }
+
+  function card(post){
+    const el = document.createElement('div');
+    el.className = 'card post-card';
+    el.onclick = () => openPost(post.file);
+
+    const img = document.createElement('img');
+    img.className = 'thumb';
+    img.src = post.cover || '';
+    img.alt = '';
+    img.onerror = () => img.style.display = 'none';
+
+    const wrap = document.createElement('div');
+    const title = document.createElement('h3');
+    title.textContent = post.title || post.file;
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    meta.textContent = formatDate(post.date);
+    const sum = document.createElement('p');
+    sum.className = 'meta';
+    sum.textContent = post.summary || '';
+
+    const tags = document.createElement('div');
+    tags.className = 'tags';
+    (post.tags || []).forEach(t => {
+      const span = document.createElement('span');
+      span.className = 'tag';
+      span.textContent = t;
+      tags.appendChild(span);
+    });
+
+    wrap.appendChild(title);
+    wrap.appendChild(meta);
+    wrap.appendChild(sum);
+    wrap.appendChild(tags);
+    el.appendChild(img);
+    el.appendChild(wrap);
+    return el;
+  }
+
+  function formatDate(s){
+    const d = new Date(s);
+    if (isNaN(d)) return s || '';
+    return d.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+  }
+
+  function buildTagCloud(posts){
+    const counts = new Map();
+    posts.forEach(p => (p.tags||[]).forEach(t => counts.set(t, (counts.get(t)||0) + 1)));
+    tagCloud.innerHTML = '';
+    [...counts.entries()].sort((a,b)=>b[1]-a[1]).slice(0,12).forEach(([t,n]) => {
+      const a = document.createElement('a');
+      a.href = '#';
+      a.className = 'tag';
+      a.textContent = `${t} (${n})`;
+      a.onclick = (e)=>{ e.preventDefault(); filterByTag(t); };
+      tagCloud.appendChild(a);
+    });
+  }
+
+  let allPosts = [];
+
+  async function listPosts(){
+    allPosts = await fetchJSON('./posts.json');
+    allPosts.sort((a,b)=> (b.date||'').localeCompare(a.date||''));
+    listEl.innerHTML = '';
+    allPosts.forEach(p => listEl.appendChild(card(p)));
+    if (allPosts[0]) latestLink.onclick = (e)=>{ e.preventDefault(); openPost(allPosts[0].file); };
+    buildTagCloud(allPosts);
+  }
+
+  function filterByTag(tag){
+    listEl.innerHTML = '';
+    allPosts.filter(p => (p.tags||[]).includes(tag)).forEach(p => listEl.appendChild(card(p)));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showList(){
+    reader.classList.add('hidden');
+    document.querySelector('main').classList.remove('hidden');
+    history.pushState({}, '', location.pathname);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  async function openPost(file){
+    try {
+      // NEW: make sure marked is available right before we render
+      await ensureMarked();
+
+      const safe = encodeURIComponent(file.replace(/^posts\//i, '').trim());
+      const url = `./posts/${safe}`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
+      const text = await res.text();
+      const html = renderMarkdownWithFrontMatter(text);
+      contentEl.innerHTML = html;
+      document.querySelector('main').classList.add('hidden');
+      reader.classList.remove('hidden');
+      history.pushState({}, '', `#${encodeURIComponent(file)}`);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (e) {
+      alert('Failed to load post: ' + e.message);
+      // Fallback: show raw text to avoid a blank screen
+      contentEl.innerHTML = `<div class="card" style="padding:1rem; white-space:pre-wrap">${e.message}</div>`;
+    }
+  }
+
+  function renderMarkdownWithFrontMatter(md){
+    const fm = md.match(/^---[\s\S]*?---/);
+    let meta = {}; let body = md;
+    if (fm){
+      const yaml = fm[0].replace(/^---|---$/g,'').trim();
+      yaml.split(/\n/).forEach(line => {
+        const m = line.match(/^(\w+):\s*(.*)$/);
+        if (m){
+          let v = m[2].trim();
+          v = v.replace(/^"|"$/g,'').replace(/^'|'$/g,'');
+          meta[m[1]] = v;
+        }
+      });
+      body = md.slice(fm[0].length).trimStart();
+    }
+    const cover = meta.cover ? `<p><img src="${meta.cover}" alt="cover"/></p>` : '';
+    const head = `<div style="padding:1rem 1rem 0;text-align:center"><h1 style="margin:.2rem 0">${meta.title||''}</h1><div class="meta">${meta.date?formatDate(meta.date):''}</div></div>`;
+
+    // At this point ensureMarked() guarantees window.marked
+    const rendered = window.marked.parse(body);
+    return `<div class="card" style="padding:1rem;text-align:center">${cover}${head}${rendered}</div>`;
+  }
+
+  window.addEventListener('load', async () => {
+    await listPosts();
+    const hash = decodeURIComponent(location.hash.replace('#',''));
+    if (hash) openPost(hash);
+  });
+</script>
